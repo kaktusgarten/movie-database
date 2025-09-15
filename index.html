@@ -7,8 +7,21 @@
     <title>Movie Database</title>
   </head>
   <body>
-    <div id="app" class="container border m-auto p-5">
-      <h1 class="text-5xl">MOVIE DATABASE</h1>
+    <div id="app" class="container border m-auto">
+      <header id="header" class="relative">
+        <div style="position: fixed; top: 0px; width: 100%;">
+          <nav class="border p-5">Ich bin die Navigation</nav>
+        </div>
+      </header>
+      <main id="main" class="">
+        <section id="howToUse" class="border p-5">
+          How to use
+        </section>
+        <section id="initalMovie" class="border p-5" style="min-height: 1000px">
+          Movies - Inital werden hier schon mal Filme angezeigt
+        </section>
+      </main>
+      <footer id="footer" class="border p-5">Ich bin der Footer</footer>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
