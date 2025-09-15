@@ -13,7 +13,11 @@
         class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
       >
         <div class="navLeft flex items-center">
-          <img src="/" alt="LOGO" class="mr-5" />
+          <img
+            src="./public/img/logo.jpg"
+            alt="LOGO"
+            class="mr-5 h-[3em] w-[3em] object-contain"
+          />
           <div>
             <ul id="headerNavLinks" class="flex">
               <li class="p-2"><a href="index.html" title="Start">Start</a></li>
@@ -51,8 +55,34 @@
       </main>
 
       <!-- FOOTER -->
-      <footer id="footer" class="border p-5">
-        Ich bin der Footer
+      <footer id="footer" class="">
+        <nav
+          class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+        >
+          <div class="navLeft flex items-center">
+            <img
+              src="./public/img/logo.jpg"
+              alt="LOGO"
+              class="mr-5 h-[3em] w-[3em] object-contain"
+            />
+            <div>
+              <ul id="headerNavLinks" class="flex">
+                <li class="p-2">
+                  <a href="index.html" title="Start">Start</a>
+                </li>
+                <li class="p-2">
+                  <a href="journal.html" title="Journal">Journal</a>
+                </li>
+                <li class="p-2">
+                  <a href="index.html" title="Kontakt">Kontakt</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="navRight flex flex-col items-end space-y-2">
+            <div>(c) 2025</div>
+          </div>
+        </nav>
       </footer>
     </div>
     <script type="module" src="/src/main.js"></script>
