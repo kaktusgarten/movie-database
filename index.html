@@ -7,21 +7,53 @@
     <title>Movie Database</title>
   </head>
   <body>
-    <div id="app" class="container border m-auto">
-      <header id="header" class="relative">
-        <div style="position: fixed; top: 0px; width: 100%;">
-          <nav class="border p-5">Ich bin die Navigation</nav>
+    <div id="app" class="container min-h-screen border mx-auto flex flex-col">
+      <!-- NAV -->
+      <nav
+        class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+      >
+        <div class="navLeft flex items-center">
+          <img src="/" alt="LOGO" class="mr-5" />
+          <div>
+            <ul id="headerNavLinks" class="flex">
+              <li class="p-2"><a href="index.html" title="Start">Start</a></li>
+              <li class="p-2">
+                <a href="journal.html" title="Journal">Journal</a>
+              </li>
+              <li class="p-2">
+                <a href="index.html" title="Kontakt">Kontakt</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </header>
-      <main id="main" class="">
-        <section id="howToUse" class="border p-5">
-          How to use
+        <div class="navRight flex flex-col items-end space-y-2">
+          <div>
+            <button class="border p-1">LOG IN</button>
+            <button class="border p-1">SIGN UP</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- HEADER -->
+      <header id="header">
+        <!-- HERO -->
+        <section id="heroSection">
+          <div class="border">Ich bin der HERO</div>
         </section>
-        <section id="initalMovie" class="border p-5" style="min-height: 1000px">
-          Movies - Inital werden hier schon mal Filme angezeigt
+      </header>
+
+      <!-- MAIN -->
+      <main id="main" class="flex-1">
+        <section id="howToUse" class="border p-5">How to use</section>
+        <section id="initalMovie" class="border p-5">
+          Movies – Initial werden hier schon mal Filme angezeigt
         </section>
       </main>
-      <footer id="footer" class="border p-5">Ich bin der Footer</footer>
+
+      <!-- FOOTER -->
+      <footer id="footer" class="border p-5">
+        Ich bin der Footer
+      </footer>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
