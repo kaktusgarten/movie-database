@@ -22,7 +22,10 @@ function getClassByRate(vote) {
 const addTrendingMovies = (movie) => {
   const movieElement = document.createElement("div");
   movieElement.classList.add("movie");
-  movieElement.innerHTML = `
+  movieElement.insertAdjacentHTML(
+    "beforeend",
+    `
+  
         <img src="${IMG_PREFIX}${movie.poster_path}" alt="${movie.title}" />
         <div class="movie-info">
             <h3>${movie.title}</h3>
@@ -34,7 +37,8 @@ const addTrendingMovies = (movie) => {
             <h3>Handlung:</h3>
             ${movie.overview.slice(0, 333)}<a href="${movie.id}">[...]</a>
         </div>
-    `;
+    `
+  );
   trendingContainer.appendChild(movieElement);
 };
 
