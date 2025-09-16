@@ -41,8 +41,36 @@
       <!-- HEADER -->
       <header id="header">
         <!-- HERO -->
-        <section id="heroSection">
-          <div class="border">Ich bin der HERO</div>
+        <section id="heroSection" class="bg-[#eee]">
+          <div class="border flex-col justify-center p-l">
+            <div
+              class="flex flex-col p-[6em] items-start"
+              style="display: flex"
+            >
+              <h1 class="text-3xl pb-5">Delux Movie Database</h1>
+              <button id="btnSearchDialog" class="border p-3">
+                SEARCH MOVIE
+              </button>
+              <dialog
+                id="meinDialog"
+                class="sticky top-0 m-auto p-5 border rounded-3xl flex flex-col"
+              >
+                <p class="text-xl pb-3">Bitte eine Film-Suche eingeben</p>
+                <form class="flex flex-row pb-5">
+                  <input
+                    name="search"
+                    type="text"
+                    placeholder="Suchwort eingeben"
+                    class="border p-2 mr-4"
+                  />
+                  <button id="btnSearch" class="border p-2">Suchen</button>
+                </form>
+                <button id="btnCloseDialog" class="border p-2">
+                  Schließen
+                </button>
+              </dialog>
+            </div>
+          </div>
         </section>
       </header>
 
