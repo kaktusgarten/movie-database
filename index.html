@@ -7,27 +7,111 @@
     <title>Movie Database</title>
   </head>
   <body>
-    <div id="app" class="container border m-auto">
-      <header id="header" class="relative">
-        <div style="position: fixed; top: 0px; width: 100%">
-          <nav class="border p-5">Ich bin die Navigation</nav>
+    <div id="app" class="container min-h-screen border mx-auto flex flex-col">
+      <!-- NAV -->
+      <nav
+        class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+      >
+        <div class="navLeft flex items-center">
+          <img
+            src="./public/img/logo.jpg"
+            alt="LOGO"
+            class="mr-5 h-[3em] w-[3em] object-contain"
+          />
+          <div>
+            <ul id="headerNavLinks" class="flex">
+              <li class="p-2"><a href="index.html" title="Start">Start</a></li>
+              <li class="p-2">
+                <a href="journal.html" title="Journal">Journal</a>
+              </li>
+              <li class="p-2">
+                <a href="index.html" title="Kontakt">Kontakt</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </header>
-      <main id="main" class="">
-        <section id="howToUse" class="border p-5">How to use</section>
+        <div class="navRight flex flex-col items-end space-y-2">
+          <div>
+            <button class="border p-1">LOG IN</button>
+            <button class="border p-1">SIGN UP</button>
+          </div>
+        </div>
+      </nav>
 
-        <!-- top 3 trending movies   -->
-        <section id="initalMovie" class="">
-          <div class="w-[85%] mx-auto p-4">
+      <!-- HEADER -->
+      <header id="header">
+        <!-- HERO -->
+        <section id="heroSection" class="bg-[#eee]">
+          <div class="border flex-col justify-center p-l">
             <div
-              id="trending-movies"
-              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-            ></div>
+              class="flex flex-col p-[6em] items-start"
+              style="display: flex"
+            >
+              <h1 class="text-3xl pb-5">Delux Movie Database</h1>
+              <button id="btnSearchDialog" class="border p-3">
+                SEARCH MOVIE
+              </button>
+              <dialog
+                id="meinDialog"
+                class="sticky top-0 m-auto p-5 border rounded-3xl flex flex-col"
+              >
+                <p class="text-xl pb-3">Bitte eine Film-Suche eingeben</p>
+                <form class="flex flex-row pb-5">
+                  <input
+                    name="search"
+                    type="text"
+                    placeholder="Suchwort eingeben"
+                    class="border p-2 mr-4"
+                  />
+                  <button id="btnSearch" class="border p-2">Suchen</button>
+                </form>
+                <button id="btnCloseDialog" class="border p-2">
+                  Schließen
+                </button>
+              </dialog>
+            </div>
           </div>
         </section>
-        <!-- end of top 3 trending movies -->
+      </header>
+
+      <!-- MAIN -->
+      <main id="main" class="flex-1">
+        <section id="howToUse" class="border p-5">How to use</section>
+        <section id="initalMovie" class="border p-5">
+          Movies – Initial werden hier schon mal Filme angezeigt
+        </section>
       </main>
-      <footer id="footer" class="border p-5">Ich bin der Footer</footer>
+
+      <!-- FOOTER -->
+      <footer id="footer" class="">
+        <nav
+          class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+        >
+          <div class="navLeft flex items-center">
+            <img
+              src="./public/img/logo.jpg"
+              alt="LOGO"
+              class="mr-5 h-[3em] w-[3em] object-contain"
+            />
+            <div>
+              <ul id="headerNavLinks" class="flex">
+                <li class="p-2">
+                  <a href="index.html" title="Start">Start</a>
+                </li>
+                <li class="p-2">
+                  <a href="journal.html" title="Journal">Journal</a>
+                </li>
+                <li class="p-2">
+                  <a href="index.html" title="Kontakt">Kontakt</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="navRight flex flex-col items-end space-y-2">
+            <div>(c) 2025</div>
+          </div>
+        </nav>
+      </footer>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

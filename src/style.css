@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+/* DIALOG CSS */
+dialog {
+  display: none; /* standardmäßig verstecken */
+}
+dialog[open] {
+  display: flex; /* sichtbar wenn open */
+}
