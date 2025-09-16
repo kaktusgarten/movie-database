@@ -3,8 +3,8 @@ import { getTrendingMovies } from "./trending.js";
 
 getTrendingMovies();
 
-// Dialog Modal:
-// Der Button zum öffnen des Notiz-Dialog-Feldes muss so heißen, oder hier anpassen:
+// DIALOG MODAL **************:
+// Der Button zum öffnen des Notiz-Dialog-Feldes muss so heißen wie hier deklariert, oder hier anpasst werden:
 const btnEnterNotizDialog = document.getElementById("btnEnterNotizDialog");
 const dialog = document.getElementById("meinDialog");
 const btnCloseDialog = document.getElementById("btnCloseDialog");
@@ -18,11 +18,22 @@ btnCloseDialog.addEventListener("click", (e) => {
   dialog.close(); // Öffnet den Dialog modal
 });
 
-// SEARCH FORM
+// NOTIZ FORM ****************:
+const notizForm = document.getElementById("notizForm");
+notizForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const inputValue = e.target.querySelector("input[name='notizString']").value;
+  // NOTIZ STRING HIER abgreifen:
+  console.log(inputValue);
+  alert("NOTIZ IST: " + inputValue);
+});
+
+// SEARCH FORM ****************:
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputValue = e.target.querySelector("input[name='searchString']").value;
+  // SEARCH STRING HIER abgreifen:
   console.log(inputValue);
-  alert("Suche nach: " + inputValue);
+  alert("SUCHE NACH: " + inputValue);
 });
