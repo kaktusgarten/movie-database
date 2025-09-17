@@ -3,14 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Moviecard Einzeiler - Tooltip Fix</title>
+
+    <title>Moviecard Einzeiler mit LocalStorage</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Tooltip Grundstil - kein @apply, reines CSS (läuft im Browser) */
+
       .tooltip {
         position: relative;
         display: inline-block;
       }
+
+      .tooltip-content {
+        display: none;
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%) translateY(6px);
+        width: 20rem;
+        background: #ffffff;
+        color: #1f2937;
+        font-size: 0.875rem;
+
 
       .tooltip-content {
         display: none; /* wichtig: standardmäßig verstecken */
@@ -24,6 +37,7 @@
         color: #1f2937;
         font-size: 0.875rem;
         line-height: 1.2;
+
         padding: 0.6rem 0.75rem;
         border-radius: 0.5rem;
         box-shadow: 0 10px 20px rgba(2, 6, 23, 0.15);
@@ -32,8 +46,9 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 160ms ease, transform 160ms ease;
+
         word-break: break-word;
-      }
+
 
       .tooltip-content::after {
         content: "";
@@ -44,6 +59,7 @@
         border-width: 7px;
         border-style: solid;
         border-color: #ffffff transparent transparent transparent;
+
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
       }
 
@@ -58,6 +74,84 @@
   </head>
   <body class="bg-gray-100 p-6">
     <div id="movie-list" class="space-y-4"></div>
+
+
+    <!-- Notiz Modal -->
+    <div
+      id="noteModal"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-xl shadow-xl w-[90%] max-w-md p-6 relative">
+        <button
+          onclick="closeNoteModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+        >
+          ✕
+        </button>
+        <h2 class="text-lg font-bold mb-3">Notiz</h2>
+        <form onsubmit="saveNote(event)" class="flex flex-col gap-3">
+          <textarea
+            id="noteInput"
+            rows="5"
+            class="w-full p-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500"
+            placeholder="Deine Notiz..."
+          ></textarea>
+          <div class="flex justify-end gap-2">
+            <button
+              type="button"
+              onclick="closeNoteModal()"
+              class="px-3 py-1 bg-gray-200 rounded-md text-sm hover:bg-gray-300"
+            >
+              Abbrechen
+            </button>
+            <button
+              type="submit"
+              class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
+            >
+              Speichern
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const STORAGE_KEY = "movieApp";
+
+      function loadState() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      }
+
+      function saveState(state) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function renderMovie(movie) {
+        const state = loadState()[movie.id] || { viewed: false, note: "" };
+
+        return `
+        <div data-id="${movie.id}"
+          class="movie-row flex items-center gap-4 rounded-xl px-4 py-2 h-[100px]
+                 bg-gradient-to-r from-gray-100 to-gray-200 
+                 hover:from-gray-200 hover:to-gray-300
+                 transition-all duration-300 shadow-sm hover:shadow-lg 
+                 transform hover:-translate-y-1 overflow-visible ${
+                   state.viewed ? "bg-red-200" : ""
+                 }"
+        >
+          <!-- Thumbnail + Viewed Label -->
+          <div class="flex items-center gap-2 relative">
+            <img src="${escapeHtml(movie.thumbnail)}" alt="Poster"
+                 class="thumb w-[70px] h-[90px] object-cover rounded-md shadow transition-all duration-300 ${
+                   state.viewed ? "grayscale" : ""
+                 }" />
+            <span class="viewed-label ${
+              state.viewed ? "" : "hidden"
+            } text-xs font-bold text-red-700 bg-white/80 px-2 py-0.5 rounded">VIEWED</span>
+          </div>
+
+          <!-- Inhalte -->
+          <div class="flex items-center gap-4 flex-1 text-sm flex-wrap">
 
     <script>
       // Template Funktion
@@ -76,6 +170,7 @@
 
           <!-- Inhalte -->
           <div class="flex items-center gap-4 flex-1 text-sm">
+
             <span class="font-bold text-gray-900 truncate max-w-[180px]">${escapeHtml(
               movie.title
             )}</span>
@@ -84,27 +179,29 @@
             <span class="text-gray-600">${escapeHtml(movie.language)}</span>
             <span class="text-gray-600">${escapeHtml(movie.runtime)}</span>
 
-            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-              mehr Details
-            </button>
+
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700">mehr Details</button>
+
 
             <div class="flex gap-1">
               <button class="px-2 py-1 bg-gray-800 text-white rounded-md hover:bg-gray-700 text-xs">DE</button>
               <button class="px-2 py-1 bg-gray-800 text-white rounded-md hover:bg-gray-700 text-xs">EN</button>
             </div>
 
-            <img src="${escapeHtml(movie.fsk)}" alt="FSK"
-                 class="w-10 h-10 object-contain" />
+
+            <img src="${escapeHtml(
+              movie.fsk
+            )}" alt="FSK" class="w-10 h-10 object-contain" />
 
             <!-- Tooltip: Filminhalt -->
             <div class="tooltip">
-              <button
-                aria-expanded="false"
-                onclick="toggleTooltip(this)"
-                class="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-              >
-                Filminhalt
+              <button aria-expanded="false" onclick="toggleTooltip(this)"
+                class="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Filminhalt</button>
+
+            <img src="${escapeHtml(movie.fsk)}" alt="FSK"
+                 class="w-10 h-10 object-contain" /
               </button>
+
               <div class="tooltip-content">
                 <p class="text-sm text-gray-700 mb-2">${escapeHtml(
                   movie.description
@@ -115,6 +212,17 @@
               </div>
             </div>
 
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">Zur Watchlist</button>
+            <button onclick="toggleViewed(this)" class="seen-btn px-3 py-1 ${
+              state.viewed ? "bg-red-700" : "bg-black"
+            } text-white rounded-md hover:bg-gray-800">
+              ${state.viewed ? "Als ungesehen markieren" : "Bereits gesehen"}
+            </button>
+            <button onclick="openNoteModal('${
+              movie.id
+            }')" class="note-btn px-3 py-1 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
+              ${state.note ? "Notiz bearbeiten" : "Notiz"}
+
             <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
               Zur Watchlist
             </button>
@@ -123,11 +231,13 @@
             </button>
             <button class="px-3 py-1 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
               Notiz
+
             </button>
           </div>
         </div>
       `;
       }
+
 
       // kleine Escaping-Hilfe (verhindert XSS bei dynamischen Inhalten)
       function escapeHtml(str) {
@@ -140,17 +250,25 @@
           .replaceAll("'", "&#39;");
       }
 
+
+
       // Tooltip-Logik: schließt zuerst alle anderen Tooltips, toggled dann den aktuellen
       function toggleTooltip(button) {
         const tooltip = button.parentElement;
         const wasOpen = tooltip.classList.contains("show");
-
         // Alle anderen schließen
+
         document.querySelectorAll(".tooltip.show").forEach((t) => {
           t.classList.remove("show");
           const btn = t.querySelector("button[aria-expanded]");
           if (btn) btn.setAttribute("aria-expanded", "false");
         });
+        if (!wasOpen) {
+          tooltip.classList.add("show");
+          button.setAttribute("aria-expanded", "true");
+        }
+      }
+
 
         if (!wasOpen) {
           tooltip.classList.add("show");
@@ -162,6 +280,7 @@
       }
 
       // Klick außerhalb schließt offene Tooltips
+
       document.addEventListener("click", (e) => {
         document.querySelectorAll(".tooltip.show").forEach((t) => {
           if (!t.contains(e.target)) {
@@ -172,9 +291,73 @@
         });
       });
 
+
+      // Viewed Toggle
+      function toggleViewed(button) {
+        const row = button.closest(".movie-row");
+        const id = row.dataset.id;
+        const thumb = row.querySelector(".thumb");
+        const viewedLabel = row.querySelector(".viewed-label");
+        const state = loadState();
+        const current = state[id] || {};
+
+        const active = row.classList.contains("bg-red-200");
+        if (active) {
+          row.classList.remove("bg-red-200");
+          thumb.classList.remove("grayscale");
+          viewedLabel.classList.add("hidden");
+          button.textContent = "Bereits gesehen";
+          button.classList.remove("bg-red-700");
+          button.classList.add("bg-black");
+          current.viewed = false;
+        } else {
+          row.classList.add("bg-red-200");
+          thumb.classList.add("grayscale");
+          viewedLabel.classList.remove("hidden");
+          button.textContent = "Als ungesehen markieren";
+          button.classList.remove("bg-black");
+          button.classList.add("bg-red-700");
+          current.viewed = true;
+        }
+
+        state[id] = { ...current };
+        saveState(state);
+      }
+
+      // Notiz Modal
+      let currentMovieId = null;
+      function openNoteModal(id) {
+        currentMovieId = id;
+        const state = loadState();
+        const note = state[id]?.note || "";
+        document.getElementById("noteInput").value = note;
+        document.getElementById("noteModal").classList.remove("hidden");
+      }
+      function closeNoteModal() {
+        document.getElementById("noteModal").classList.add("hidden");
+      }
+      function saveNote(e) {
+        e.preventDefault();
+        const noteText = document.getElementById("noteInput").value;
+        const state = loadState();
+        state[currentMovieId] = state[currentMovieId] || {};
+        state[currentMovieId].note = noteText.trim();
+        saveState(state);
+
+        // Button-Text ändern
+        const row = document.querySelector(
+          `.movie-row[data-id="${currentMovieId}"]`
+        );
+        const noteBtn = row.querySelector(".note-btn");
+        noteBtn.textContent = noteText.trim() ? "Notiz bearbeiten" : "Notiz";
+
+        closeNoteModal();
+      }
+
       // Beispiel-Daten
       const movies = [
         {
+          id: "swk",
           title: "Star Wars op Kölch",
           genre: "SciFi",
           release: "22.08.2015",
@@ -188,6 +371,8 @@
           moreLink: "#",
         },
         {
+          id: "hdr",
+
           title: "Herr der Ringe",
           genre: "Fantasy",
           release: "19.12.2001",
@@ -202,7 +387,9 @@
         },
       ];
 
+
       // Render Movies
+
       const movieList = document.getElementById("movie-list");
       movies.forEach((m) =>
         movieList.insertAdjacentHTML("beforeend", renderMovie(m))
