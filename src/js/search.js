@@ -1,6 +1,5 @@
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_SEARCH = import.meta.env.VITE_URL_SEARCH;
-const IMG_PREFIX = import.meta.env.VITE_IMG_PREFIX;
 const URL_POST = "&page=1";
 
 import { showFoundedMoviesDialog } from "./helper-modal.js";
