@@ -1,5 +1,6 @@
 import "./style.css";
 import { getTrendingMovies } from "./trending.js";
+import { renderCard } from "./render.js";
 
 getTrendingMovies();
 
@@ -37,3 +38,6 @@ searchForm.addEventListener("submit", (e) => {
   console.log(inputValue);
   alert("SUCHE NACH: " + inputValue);
 });
+
+
+renderCard();
