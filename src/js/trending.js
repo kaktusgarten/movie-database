@@ -1,12 +1,14 @@
 // trending.js / used to load 3 actual trending movies
 // import "./flipcard.css";
+import { showDialog } from "./helper-modal.js";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_TRENDING = import.meta.env.VITE_URL_TRENDING;
 const URL_DETAILS = import.meta.env.VITE_URL_DETAILS;
 const IMG_PREFIX = import.meta.env.VITE_IMG_PREFIX;
-const trendingContainer = document.getElementById("trending-movies");
 const LANG_POST = "&language=de-DE";
+
+const trendingContainer = document.getElementById("trending-movies");
 
 function getClassByRate(vote) {
   vote = Math.max(0, Math.min(10, vote));
@@ -27,36 +29,6 @@ function getClassByRate(vote) {
     if (vote <= step.max) return step.color;
   }
   return "bg-gray-400";
-}
-
-function showDialog(msg, mid) {
-  const dialog = document.createElement("dialog");
-  dialog.classList.add("show-dialog");
-  dialog.textContent = msg;
-
-  const buttonDiv = document.createElement("div");
-  buttonDiv.classList.add("button-container"); // tbd
-
-  // i dont care btn
-  const closeButton = document.createElement("button");
-  closeButton.textContent = "uninteressant";
-  closeButton.addEventListener("click", () => {
-    dialog.close();
-  });
-  buttonDiv.appendChild(closeButton);
-
-  // goto movie btn
-  const detailsButton = document.createElement("button");
-  detailsButton.textContent = "zum Film";
-  detailsButton.addEventListener("click", () => {
-    dialog.close();
-    window.location.href = `details.html?id=${mid}`;
-  });
-  buttonDiv.appendChild(detailsButton);
-  dialog.appendChild(buttonDiv);
-  document.body.appendChild(dialog);
-
-  dialog.showModal();
 }
 
 const addTrendingMovies = (movie) => {
