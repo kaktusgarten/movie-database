@@ -29,6 +29,36 @@ function getClassByRate(vote) {
   return "bg-gray-400";
 }
 
+function showDialog(msg, mid) {
+  const dialog = document.createElement("dialog");
+  dialog.classList.add("show-dialog");
+  dialog.textContent = msg;
+
+  const buttonDiv = document.createElement("div");
+  buttonDiv.classList.add("button-container"); // tbd
+
+  // i dont care btn
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "uninteressant";
+  closeButton.addEventListener("click", () => {
+    dialog.close();
+  });
+  buttonDiv.appendChild(closeButton);
+
+  // goto movie btn
+  const detailsButton = document.createElement("button");
+  detailsButton.textContent = "zum Film";
+  detailsButton.addEventListener("click", () => {
+    dialog.close();
+    window.location.href = `details.html?id=${mid}`;
+  });
+  buttonDiv.appendChild(detailsButton);
+  dialog.appendChild(buttonDiv);
+  document.body.appendChild(dialog);
+
+  dialog.showModal();
+}
+
 const addTrendingMovies = (movie) => {
   // Get saved state from local storage for each movie
   const storedSeen = localStorage.getItem(`movieSeen-${movie.id}`) === "true";
@@ -281,7 +311,7 @@ const addTrendingMovies = (movie) => {
 
   const plotText = document.createElement("p");
   plotText.classList.add("text-xs", "text-gray-700", "leading-snug", "flex-1");
-  plotText.textContent = movie.overview.slice(0, 250);
+  plotText.textContent = movie.overview.slice(0, 250) + " [...]";
 
   const moreButtonMiddle = document.createElement("button");
   moreButtonMiddle.classList.add(
@@ -296,7 +326,12 @@ const addTrendingMovies = (movie) => {
     "transition",
     "self-start"
   );
-  moreButtonMiddle.textContent = "mehr";
+  moreButtonMiddle.textContent = "Details";
+  moreButtonMiddle.addEventListener("click", () => {
+    // opening dialog-box to show movie.overview and moreLink-Button for further details refering to details.html with movie.id
+    showDialog(movie.overview, movie.id);
+    // window.location.href = `details.html?id=${movie.id}`; // refactored, passing mid
+  });
 
   middleSection.append(plotTitle, plotText, moreButtonMiddle);
 

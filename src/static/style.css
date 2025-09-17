@@ -8,3 +8,23 @@ dialog {
 dialog[open] {
   display: flex; /* sichtbar wenn open */
 }
+
+.show-dialog {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.33);
+  background-color: #fff;
+  font-family: sans-serif;
+  text-align: left;
+  max-width: 33vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3rem;
+}
+
+/* Style the backdrop */
+.show-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
