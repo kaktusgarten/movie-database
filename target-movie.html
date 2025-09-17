@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Database</title>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Hero Section -->
+    <section class="relative h-[450px] w-full">
+      <!-- Hintergrundbild -->
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/8/87/Ringstrilogyposter.jpg"
+        alt="Film Hero"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <!-- Overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"
+      ></div>
+
+      <!-- Content -->
+      <div class="relative z-10 h-full flex items-center px-8 lg:px-16">
+        <div class="max-w-2xl">
+          <h1 class="text-4xl lg:text-6xl font-bold text-white mb-4">
+            Herr der Ringe
+          </h1>
+          <p class="text-lg text-gray-200 mb-2">Fantasy • 2001 • 178 Min</p>
+          <p class="text-gray-300">Sprache: Deutsch, Englisch</p>
+          <div class="mt-6 flex gap-4">
+            <button
+              class="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+            >
+              Jetzt ansehen
+            </button>
+            <button
+              class="px-5 py-2 bg-gray-200 text-gray-900 rounded-lg shadow hover:bg-gray-300 transition"
+            >
+              Zur Watchlist
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <main class="px-8 lg:px-16 py-10 max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Über den Film</h2>
+      <p class="text-gray-700 leading-relaxed mb-8">
+        Ein Hobbit begibt sich auf eine epische Reise, um einen Ring zu
+        zerstören. Begleitet wird er von einer Gemeinschaft aus Gefährten, die
+        den Lauf der Welt verändern.
+      </p>
+
+      <h2 class="text-2xl font-bold mb-4">Besetzung</h2>
+      <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+        <li class="text-gray-800">Elijah Wood – Frodo</li>
+        <li class="text-gray-800">Ian McKellen – Gandalf</li>
+        <li class="text-gray-800">Viggo Mortensen – Aragorn</li>
+        <li class="text-gray-800">Orlando Bloom – Legolas</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold mb-4">Trailer</h2>
+      <div class="aspect-video bg-black rounded-lg overflow-hidden shadow">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/V75dMMIW2B4"
+          title="YouTube trailer"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+    </main>
+  </body>
+</html>
