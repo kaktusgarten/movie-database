@@ -32,7 +32,7 @@ searchForm.addEventListener("submit", (e) => {
   alert("SUCHE NACH: " + inputValue);
 });
 
-renderCard();
+renderCard("imageSource", "Der gelbe Strahl");
 
 // Rating Badge Farbe
 function getRatingColor(rating) {
@@ -94,36 +94,6 @@ function setFSKLogo(fsk) {
 const fskWert = 12;
 setFSKLogo(fskWert);
 
-// Notiz PopUp
-let noteSaved = false;
-let savedNote = localStorage.getItem("movieNote") || "";
-if (savedNote) {
-  noteSaved = true;
-  document.getElementById("noteButton").textContent = "Notiz bearbeiten";
-}
-
-function openModal() {
-  document.getElementById("notizModal").classList.remove("hidden");
-  if (noteSaved) {
-    document.getElementById("noteInput").value = savedNote;
-  }
-}
-
-function closeModal() {
-  document.getElementById("notizModal").classList.add("hidden");
-}
-
-function saveNote(e) {
-  e.preventDefault();
-  savedNote = document.getElementById("noteInput").value;
-  if (savedNote.trim() !== "") {
-    noteSaved = true;
-    localStorage.setItem("movieNote", savedNote);
-    document.getElementById("noteButton").textContent = "Notiz bearbeiten";
-  }
-  closeModal();
-}
-
 // Bereits gesehen
 let seen = false;
 const storedSeen = localStorage.getItem("movieSeen");
@@ -148,10 +118,12 @@ function toggleSeen() {
   }
 }
 
+// Card Buttons:
 const noteButton = document.getElementsByClassName("noteButton")[0];
 const watchListButton = document.getElementById("watchListButton");
 const seenbutton = document.getElementById("seenbutton");
 
+// Button Funktonen dazu:
 noteButton.addEventListener("click", (e) => {
   e.preventDefault();
   dialog.showModal();
