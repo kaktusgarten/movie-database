@@ -1,10 +1,12 @@
 // trending.js / used to load 3 actual trending movies
-import "./flipcard.css";
+// import "./flipcard.css";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_TRENDING = import.meta.env.VITE_URL_TRENDING;
+const URL_DETAILS = import.meta.env.VITE_URL_DETAILS;
 const IMG_PREFIX = import.meta.env.VITE_IMG_PREFIX;
 const trendingContainer = document.getElementById("trending-movies");
+const LANG_POST = "&language=de-DE";
 
 function getClassByRate(vote) {
   vote = Math.max(0, Math.min(10, vote));
@@ -115,7 +117,7 @@ const addTrendingMovies = (movie) => {
   );
 
   const movieTitle = document.createElement("h2");
-  movieTitle.classList.add("text-2xl", "font-bold", "mb-2", "text-black");
+  movieTitle.classList.add("text-sm", "font-bold", "mb-2", "text-black");
   movieTitle.textContent = movie.title;
 
   const dateGenreContainer = document.createElement("div");
@@ -180,7 +182,9 @@ const addTrendingMovies = (movie) => {
 
   const detailsContainer = document.createElement("div");
   detailsContainer.classList.add("text-xs", "text-gray-700", "leading-snug");
+
   detailsContainer.innerHTML = `
+    <p id="genres-${movie.id}"id="genres-${movie.id}"></p>
     <p><span class="font-semibold">Erscheinung:</span> ${movie.release_date}</p>
     <p><span class="font-semibold">Originalsprache:</span> ${movie.original_language}</p>
     <p><span class="font-semibold">Sprache:</span> de</p>
@@ -189,11 +193,31 @@ const addTrendingMovies = (movie) => {
   `;
 
   const fskDiv = document.createElement("div");
+  const p = document.createElement("p");
+  const FSKMsg = isFSK(movie.id) ? "FSK 18+" : "FSK 12+";
+  p.textContent = FSKMsg;
+  if (isFSK(movie.id)) {
+    p.classList.add("text-red-600");
+  }
+  p.classList.add(
+    "font-semibold",
+    "text-gray-700",
+    "leading-snug",
+    "mt-2",
+    "text-xs"
+  );
+  fskDiv.appendChild(p);
   fskDiv.classList.add("mt-2");
 
   const fskImg = document.createElement("img");
   fskImg.id = "fsk-logo";
-  fskImg.src = "";
+  if (isFSK(movie.id)) {
+    fskImg.src =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/FSK_18.svg/900px-FSK_18.svg.png";
+  } else {
+    fskImg.src =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/FSK_12.svg/900px-FSK_12.svg.png";
+  }
   fskImg.alt = "FSK";
   fskImg.classList.add("w-[45px]", "h-[45px]", "object-contain");
   fskDiv.appendChild(fskImg);
@@ -257,7 +281,7 @@ const addTrendingMovies = (movie) => {
 
   const plotText = document.createElement("p");
   plotText.classList.add("text-xs", "text-gray-700", "leading-snug", "flex-1");
-  plotText.textContent = movie.overview;
+  plotText.textContent = movie.overview.slice(0, 250);
 
   const moreButtonMiddle = document.createElement("button");
   moreButtonMiddle.classList.add(
@@ -388,6 +412,14 @@ const addTrendingMovies = (movie) => {
     };
     form.addEventListener("submit", saveNoteHandler);
   });
+
+  watchlistButton.addEventListener("click", () => {
+    const watchlist = localStorage.getItem("watchlist") || "[]";
+    const parsedWatchlist = JSON.parse(watchlist);
+    parsedWatchlist.push(movie);
+    localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
+  });
+  getGenres(movie.id);
 };
 
 function getTrendingMovies() {
@@ -412,5 +444,50 @@ function getTrendingMovies() {
     })
     .catch((err) => console.error(err));
 }
+
+function isFSK(movieId) {
+  const url = `${URL_DETAILS}/${movieId}?${LANG_POST}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  };
+
+  fetch(url, options)
+    .then((res) => res.json())
+    .then((json) => {
+      const movie = json;
+      console.log("Movie Details:");
+      return movie.adult;
+    })
+    .catch((err) => console.error(err));
+}
+
+const getGenres = async (movieId) => {
+  const url = `${URL_DETAILS}/${movieId}${LANG_POST}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  };
+
+  try {
+    const res = await fetch(url, options);
+    const json = await res.json();
+    const movie = json;
+    console.log("Genre:");
+    console.log(movie.genres);
+    const allgenres = movie.genres.map((genre) => genre.name).join(", ");
+    const genreMsg = `<span class="font-semibold">Genre:</span> ${allgenres}`;
+    document.getElementById(`genres-${movie.id}`).innerHTML = genreMsg;
+    return null;
+  } catch (error) {
+    console.error("Error fetching movie data:", error);
+  }
+};
 
 export { getTrendingMovies };

@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "./flipcard.css";
+
+/* DIALOG CSS */
+dialog {
+  display: none; /* standardmäßig verstecken */
+}
+dialog[open] {
+  display: flex; /* sichtbar wenn open */
+}

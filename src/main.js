@@ -1,4 +1,4 @@
-import "./style.css";
+import "./static/style.css";
 import { getTrendingMovies } from "./trending.js";
 import { getSearchMovies } from "./search.js";
 
