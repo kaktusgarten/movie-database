@@ -219,6 +219,7 @@ const addTrendingMovies = (movie) => {
     <p><span class="font-semibold">Originalsprache:</span> ${movie.original_language}</p>
     <p><span class="font-semibold">Sprache:</span> de</p>
     <p><span class="font-semibold">Originaltitel:</span> ${movie.original_title}</p>
+    <p><span class="font-semibold">Spiellänge:</span> ${movie.runtime}</p>
     <p><span class="font-semibold">Anzahl Stimmen:</span> ${movie.vote_count}</p>
   `;
 
