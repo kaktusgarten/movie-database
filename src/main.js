@@ -1,6 +1,5 @@
 import "./style.css";
 import { getTrendingMovies } from "./trending.js";
-import { renderCard } from "./render.js";
 
 getTrendingMovies();
 
@@ -32,7 +31,8 @@ searchForm.addEventListener("submit", (e) => {
   alert("SUCHE NACH: " + inputValue);
 });
 
-renderCard("imageSource", "Der gelbe Strahl");
+// RENDERN DER CARD - Funktion hier, Sample:
+// renderCard();
 
 // Rating Badge Farbe
 function getRatingColor(rating) {
@@ -58,41 +58,41 @@ function getRatingColor(rating) {
 
 const rating = 7.6;
 const badge = document.getElementById("rating-badge");
-badge.textContent = rating.toFixed(1).replace(".", ",");
-badge.classList.add(getRatingColor(rating));
+// badge.textContent = rating.toFixed(1).replace(".", ",");
+// badge.classList.add(getRatingColor(rating));
 
 // FSK Logo
-function setFSKLogo(fsk) {
-  const fskLogo = document.getElementById("fsk-logo");
-  let src = "";
-  switch (fsk) {
-    case 0:
-      src =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/FSK_0.svg/900px-FSK_0.svg.png";
-      break;
-    case 6:
-      src =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/FSK_6.svg/900px-FSK_6.svg.png";
-      break;
-    case 12:
-      src =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/FSK_12.svg/900px-FSK_12.svg.png";
-      break;
-    case 16:
-      src =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/FSK_16.svg/900px-FSK_16.svg.png";
-      break;
-    case 18:
-      src =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/FSK_18.svg/900px-FSK_18.svg.png";
-      break;
-    default:
-      src = "./public/img/fsk0.svg";
-  }
-  fskLogo.src = src;
-}
+// function setFSKLogo(fsk) {
+//   const fskLogo = document.getElementById("fsk-logo");
+//   let src = "";
+//   switch (fsk) {
+//     case 0:
+//       src =
+//         "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/FSK_0.svg/900px-FSK_0.svg.png";
+//       break;
+//     case 6:
+//       src =
+//         "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/FSK_6.svg/900px-FSK_6.svg.png";
+//       break;
+//     case 12:
+//       src =
+//         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/FSK_12.svg/900px-FSK_12.svg.png";
+//       break;
+//     case 16:
+//       src =
+//         "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/FSK_16.svg/900px-FSK_16.svg.png";
+//       break;
+//     case 18:
+//       src =
+//         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/FSK_18.svg/900px-FSK_18.svg.png";
+//       break;
+//     default:
+//       src = "./public/img/fsk0.svg";
+//   }
+//   fskLogo.src = src;
+// }
 const fskWert = 12;
-setFSKLogo(fskWert);
+// setFSKLogo(fskWert);
 
 // Bereits gesehen
 let seen = false;
@@ -119,12 +119,18 @@ function toggleSeen() {
 }
 
 // Card Buttons:
-const noteButton = document.getElementsByClassName("noteButton")[0];
+const noteButtons = document.getElementsByClassName("noteButton");
+console.log(noteButtons);
 const watchListButton = document.getElementById("watchListButton");
 const seenbutton = document.getElementById("seenbutton");
 
+//
+
 // Button Funktonen dazu:
-noteButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  dialog.showModal();
+console.log("ERROR");
+const cardWrapper = document.getElementById("initalMovie");
+cardWrapper.addEventListener("click", (e) => {
+  if (e.target.matches(".noteButton")) {
+    console.log("Klick");
+  }
 });
