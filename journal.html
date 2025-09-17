@@ -7,19 +7,83 @@
     <title>Movie Database - Journal</title>
   </head>
   <body>
-    <div id="app" class="journalPage container border m-auto">
-      <header class="relative">
-        <div style="position: fixed; top: 0px; width: 100%;">
-          <nav class="border p-5">Ich bin die Navigation</nav>
+    <div id="app" class="container min-h-screen border mx-auto flex flex-col">
+      <!-- NAV -->
+      <nav
+        class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+      >
+        <div class="navLeft flex items-center">
+          <img
+            src="./public/img/logo.jpg"
+            alt="LOGO"
+            class="mr-5 h-[3em] w-[3em] object-contain"
+          />
+          <div>
+            <ul id="headerNavLinks" class="flex">
+              <li class="p-2"><a href="index.html" title="Start">Start</a></li>
+              <li class="p-2">
+                <a href="journal.html" title="Journal">Journal</a>
+              </li>
+              <li class="p-2">
+                <a href="index.html" title="Kontakt">Kontakt</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="navRight flex flex-col items-end space-y-2">
+          <div>
+            <button class="border p-1">LOG IN</button>
+            <button class="border p-1">SIGN UP</button>
+          </div>
+        </div>
+      </nav>
+
+      <header>
+        <div class="sticky">
+          <nav class="border p-5">Dein Journal</nav>
         </div>
       </header>
       <main>
-        <section id="journalFilme" class="border p-5" style="min-height: 1000px">
+        <section
+          id="journalFilme"
+          class="border p-5"
+          style="min-height: 1000px"
+        >
           HIER kommen unsere Favoriten rein!
         </section>
       </main>
-      <footer class="border p-5">Ich bin der Footer</footer>
+      <!-- FOOTER -->
+      <footer id="footer" class="">
+        <nav
+          class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+        >
+          <div class="navLeft flex items-center">
+            <img
+              src="./public/img/logo.jpg"
+              alt="LOGO"
+              class="mr-5 h-[3em] w-[3em] object-contain"
+            />
+            <div>
+              <ul id="headerNavLinks" class="flex">
+                <li class="p-2">
+                  <a href="index.html" title="Start">Start</a>
+                </li>
+                <li class="p-2">
+                  <a href="journal.html" title="Journal">Journal</a>
+                </li>
+                <li class="p-2">
+                  <a href="index.html" title="Kontakt">Kontakt</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="navRight flex flex-col items-end space-y-2">
+            <div>(c) 2025</div>
+          </div>
+        </nav>
+      </footer>
     </div>
+    <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/journal.js"></script>
   </body>
 </html>
