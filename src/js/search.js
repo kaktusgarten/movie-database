@@ -15,9 +15,7 @@ searchValue.addEventListener("submit", (e) => {
 
 const dialog = document.createElement("dialog");
 
-// const searchContainer = document.getElementById("search-movies");
-
-// fetch function to catch a special movie
+// fetch function to catch via searchterm
 const getSearchMovies = (searchTerm) => {
   const url = `${URL_SEARCH}${searchTerm}${URL_POST}`;
   const options = {
@@ -43,6 +41,9 @@ const getSearchMovies = (searchTerm) => {
         }">${element.name.toUpperCase()}</a></li>`;
       });
       foundedMoviesCode += `</ul>`;
+      if (movieList.length === 0) {
+        foundedMoviesCode = `<p>Keine Filme gefunden</p>`;
+      }
       showFoundedMoviesDialog(foundedMoviesCode);
     })
     .catch((err) => console.error(err));

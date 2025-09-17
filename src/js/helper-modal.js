@@ -30,7 +30,7 @@ function showOverviewDialog(msg, mid) {
 
 function showFoundedMoviesDialog(codetemplate) {
   const dialog = document.createElement("dialog");
-  dialog.classList.add("show-dialog");
+  dialog.classList.add("show-founded-movies-dialog");
   dialog.innerHTML = codetemplate;
 
   const buttonDiv = document.createElement("div");
