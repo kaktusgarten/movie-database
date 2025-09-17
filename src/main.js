@@ -1,7 +1,9 @@
 import "./style.css";
 import { getTrendingMovies } from "./trending.js";
+import { getSearchMovies } from "./search.js";
 
 getTrendingMovies();
+getSearchMovies("spiderman");
 
 // Dialog Modal:
 const btnSearchDialog = document.getElementById("btnSearchDialog");
