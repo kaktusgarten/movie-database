@@ -1,10 +1,6 @@
 // trending.js / used to load 3 actual trending movies
 import "./flipcard.css";
 
-// importing dotenv to get variables from .env-file with vite as bundler
-// import dotenv from "dotenv";
-// dotenv.config();
-
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_TRENDING = import.meta.env.VITE_URL_TRENDING;
 const IMG_PREFIX = import.meta.env.VITE_IMG_PREFIX;
@@ -32,165 +28,366 @@ function getClassByRate(vote) {
 }
 
 const addTrendingMovies = (movie) => {
+  // Get saved state from local storage for each movie
+  const storedSeen = localStorage.getItem(`movieSeen-${movie.id}`) === "true";
+  const storedNote = localStorage.getItem(`movieNote-${movie.id}`) || "";
+
+  // Create the main flip-card container
   const movieElement = document.createElement("div");
-  movieElement.classList.add("movie");
-  movieElement.insertAdjacentHTML(
-    "beforeend",
-    `
-    <section class="flex items-start gap-6 flex-wrap justify-center">
-      <div class="flip-card w-[385px] h-[580px] relative">
-        <div class="flip-card-inner">
-          <div class="flip-card-front p-2 rounded-xl relative">
-            <div class="h-[480px] w-full relative overflow-hidden rounded-xl">
-              <img
-                src="${IMG_PREFIX}${movie.poster_path}"
-                alt="Film Poster"
-                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105 rounded-xl border-4 border-gray-200"
-              />
-              <div
-                id="rating-badge"
-                class="absolute top-3 right-3 px-3 py-1.5 rounded-full text-white text-base font-bold shadow-lg ring-2 ring-white/70 ${getClassByRate(
-                  movie.vote_average
-                )} transform transition-transform duration-300 hover:scale-110"
-              >
-                ${movie.vote_average.toFixed(1)}
-              </div>
+  movieElement.classList.add("flip-card", "w-[385px]", "h-[580px]", "relative");
 
-              <div id="seen-overlay" class="hidden">Bereits gesehen</div>
-            </div>
-            <div class="p-4 flex flex-col h-[80px] relative">
-              <h2 class="text-sm font-bold mb-2 text-black">${movie.title}</h2>
-              <div class="text-gray-700 flex justify-start text-sm mt-auto">
-                <span class="m-2">${movie.release_date}</span>
-                <span class="m-2">Action</span>
-              </div>
-              <div class="corner"></div>
-            </div>
-          </div>
+  const flipCardInner = document.createElement("div");
+  flipCardInner.classList.add("flip-card-inner");
 
-          <div class="flip-card-back flex flex-col p-2 rounded-xl border-2 border-white/20 text-gray-900">
-            <div class="bg-white rounded-lg p-3 mx-1 flex flex-col gap-1 shadow-sm">
-              <div class="grid grid-cols-3 gap-3">
-                <div class="col-span-2 flex flex-col gap-0.5">
-                  <h2 class="text-base font-bold">${movie.title}</h2>
-                  <div class="text-xs text-gray-700 leading-snug">
-                    <p><span class="font-semibold">Genre:</span> Action</p>
-                    <p><span class="font-semibold">Erscheinung:</span> ${
-                      movie.release_date
-                    }</p>
-                    <p><span class="font-semibold">Länge:</span> 207 Minuten</p>
-                    <p><span class="font-semibold">Sprache:</span> deutsch, englisch</p>
-                    <p><span class="font-semibold">Regie:</span> Röland Emmerich</p>
-
-                    <div class="mt-2">
-                      <img
-                        id="fsk-logo"
-                        src=""
-                        alt="FSK"
-                        class="w-[45px] h-[45px] object-contain"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-span-1 flex items-center justify-center">
-                  <img
-                    src="${IMG_PREFIX}${movie.poster_path}"
-                    alt="Poster Thumbnail"
-                    class="w-full h-auto rounded-md shadow object-cover"
-                  />
-                </div>
-              </div>
-
-              <button
-                class="mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
-              >
-                mehr
-              </button>
-            </div>
-
-            <div class="bg-white rounded-lg p-3 mx-1 flex flex-col gap-1 shadow-sm mt-1 flex-1">
-              <h3 class="text-sm font-semibold">Handlungsauszug:</h3>
-              <p class="text-xs text-gray-700 leading-snug flex-1">
-                ${movie.overview}
-              </p>
-              <button
-                class="mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
-              >
-                mehr
-              </button>
-            </div>
-
-            <div class="bg-white rounded-lg p-3 mx-1 flex flex-col gap-2 shadow-sm mt-1">
-              <div class="flex justify-between items-center gap-2">
-                <button
-                  id="noteButton"
-                  onclick="openModal()"
-                  class="flex-1 h-[50px] px-3 py-1 bg-gray-200 text-gray-800 text-xs rounded-md hover:bg-gray-300 transition"
-                >
-                  Notiz
-                </button>
-                <button
-                  class="flex-1 h-[50px] px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition"
-                >
-                  Zur Watchlist
-                </button>
-                <button
-                  id="seenButton"
-                  onclick="toggleSeen()"
-                  class="flex-1 h-[50px] px-3 py-1 bg-black text-white text-xs rounded-md hover:bg-gray-800 transition"
-                >
-                  Bereits gesehen
-                </button>
-              </div>
-            </div>
-
-            <div
-              id="notizModal"
-              class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50"
-            >
-              <div
-                class="bg-white rounded-xl shadow-xl w-[90%] max-w-md p-6 relative"
-              >
-                <button
-                  onclick="closeModal()"
-                  class="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-                >
-                  ✕
-                </button>
-                <h2 class="text-lg font-bold mb-3">Notiz hinzufügen</h2>
-                <form onsubmit="saveNote(event)" class="flex flex-col gap-3">
-                  <textarea
-                    id="noteInput"
-                    rows="5"
-                    class="w-full p-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500"
-                    placeholder="Deine Notiz..."
-                  ></textarea>
-                  <div class="flex justify-end gap-2">
-                    <button
-                      type="button"
-                      onclick="closeModal()"
-                      class="px-3 py-1 bg-gray-200 rounded-md text-sm hover:bg-gray-300"
-                    >
-                      Abbrechen
-                    </button>
-                    <button
-                      type="submit"
-                      class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
-                    >
-                      Speichern
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    `
+  // Create the Front of the card
+  const flipCardFront = document.createElement("div");
+  flipCardFront.classList.add(
+    "flip-card-front",
+    "p-2",
+    "rounded-xl",
+    "relative"
   );
+
+  const imageContainer = document.createElement("div");
+  imageContainer.classList.add(
+    "h-[480px]",
+    "w-full",
+    "relative",
+    "overflow-hidden",
+    "rounded-xl"
+  );
+
+  const posterImg = document.createElement("img");
+  posterImg.src = `${IMG_PREFIX}${movie.poster_path}`;
+  posterImg.alt = "Film Poster";
+  posterImg.classList.add(
+    "w-full",
+    "h-full",
+    "object-cover",
+    "transform",
+    "transition-transform",
+    "duration-500",
+    "hover:scale-105",
+    "rounded-xl",
+    "border-4",
+    "border-gray-200"
+  );
+
+  const voteBadge = document.createElement("div");
+  voteBadge.classList.add(
+    "absolute",
+    "top-3",
+    "right-3",
+    "px-3",
+    "py-1.5",
+    "rounded-full",
+    "text-white",
+    "text-base",
+    "font-bold",
+    "shadow-lg",
+    "ring-2",
+    "ring-white/70",
+    `${getClassByRate(movie.vote_average)}`,
+    "transform",
+    "transition-transform",
+    "duration-300",
+    "hover:scale-110"
+  );
+  voteBadge.textContent = movie.vote_average.toFixed(1);
+
+  const seenOverlay = document.createElement("div");
+  seenOverlay.id = "seen-overlay";
+  seenOverlay.classList.add("hidden");
+  if (storedSeen) {
+    seenOverlay.classList.remove("hidden");
+  }
+  seenOverlay.textContent = "Bereits gesehen";
+
+  imageContainer.append(posterImg, voteBadge, seenOverlay);
+
+  const frontTextContainer = document.createElement("div");
+  frontTextContainer.classList.add(
+    "p-4",
+    "flex",
+    "flex-col",
+    "h-[80px]",
+    "relative"
+  );
+
+  const movieTitle = document.createElement("h2");
+  movieTitle.classList.add("text-2xl", "font-bold", "mb-2", "text-black");
+  movieTitle.textContent = movie.title;
+
+  const dateGenreContainer = document.createElement("div");
+  dateGenreContainer.classList.add(
+    "text-gray-700",
+    "flex",
+    "justify-start",
+    "text-sm",
+    "mt-auto"
+  );
+
+  const releaseDateSpan = document.createElement("span");
+  releaseDateSpan.classList.add("m-2");
+  releaseDateSpan.textContent = movie.release_date;
+
+  const genreSpan = document.createElement("span");
+  genreSpan.classList.add("m-2");
+  genreSpan.textContent = "";
+  dateGenreContainer.append(releaseDateSpan, genreSpan);
+
+  const cornerDiv = document.createElement("div");
+  cornerDiv.classList.add("corner");
+
+  frontTextContainer.append(movieTitle, dateGenreContainer, cornerDiv);
+  flipCardFront.append(imageContainer, frontTextContainer);
+
+  // Create the Back of the card
+  const flipCardBack = document.createElement("div");
+  flipCardBack.classList.add(
+    "flip-card-back",
+    "flex",
+    "flex-col",
+    "p-2",
+    "rounded-xl",
+    "border-2",
+    "border-white/20",
+    "text-gray-900"
+  );
+
+  // Top Section
+  const topSection = document.createElement("div");
+  topSection.classList.add(
+    "bg-white",
+    "rounded-lg",
+    "p-3",
+    "mx-1",
+    "flex",
+    "flex-col",
+    "gap-1",
+    "shadow-sm"
+  );
+
+  const gridContainer = document.createElement("div");
+  gridContainer.classList.add("grid", "grid-cols-3", "gap-3");
+
+  const leftColumn = document.createElement("div");
+  leftColumn.classList.add("col-span-2", "flex", "flex-col", "gap-0.5");
+
+  const backTitle = document.createElement("h2");
+  backTitle.classList.add("text-base", "font-bold");
+  backTitle.textContent = movie.title;
+
+  const detailsContainer = document.createElement("div");
+  detailsContainer.classList.add("text-xs", "text-gray-700", "leading-snug");
+  detailsContainer.innerHTML = `
+    <p><span class="font-semibold">Genre:</span> Action</p>
+    <p><span class="font-semibold">Erscheinung:</span> ${movie.release_date}</p>
+    <p><span class="font-semibold">Länge:</span>${movie.runtime} Minuten</p>
+    <p><span class="font-semibold">Sprache:</span> deutsch, englisch</p>
+    <p><span class="font-semibold">Regie:</span> Röland Emmerich</p>
+  `;
+
+  const fskDiv = document.createElement("div");
+  fskDiv.classList.add("mt-2");
+
+  const fskImg = document.createElement("img");
+  fskImg.id = "fsk-logo";
+  fskImg.src = "";
+  fskImg.alt = "FSK";
+  fskImg.classList.add("w-[45px]", "h-[45px]", "object-contain");
+  fskDiv.appendChild(fskImg);
+  leftColumn.append(backTitle, detailsContainer, fskDiv);
+
+  const rightColumn = document.createElement("div");
+  rightColumn.classList.add(
+    "col-span-1",
+    "flex",
+    "items-center",
+    "justify-center"
+  );
+  const posterThumbnail = document.createElement("img");
+  posterThumbnail.src = `${IMG_PREFIX}${movie.poster_path}`;
+  posterThumbnail.alt = "Poster Thumbnail";
+  posterThumbnail.classList.add(
+    "w-full",
+    "h-auto",
+    "rounded-md",
+    "shadow",
+    "object-cover"
+  );
+  rightColumn.appendChild(posterThumbnail);
+
+  const moreButtonTop = document.createElement("button");
+  moreButtonTop.classList.add(
+    "mt-1",
+    "px-3",
+    "py-1",
+    "bg-blue-600",
+    "text-white",
+    "text-xs",
+    "rounded-md",
+    "hover:bg-blue-700",
+    "transition",
+    "self-start"
+  );
+  moreButtonTop.textContent = "mehr";
+
+  gridContainer.append(leftColumn, rightColumn);
+  topSection.append(gridContainer, moreButtonTop);
+
+  // Middle Section
+  const middleSection = document.createElement("div");
+  middleSection.classList.add(
+    "bg-white",
+    "rounded-lg",
+    "p-3",
+    "mx-1",
+    "flex",
+    "flex-col",
+    "gap-1",
+    "shadow-sm",
+    "mt-1",
+    "flex-1"
+  );
+
+  const plotTitle = document.createElement("h3");
+  plotTitle.classList.add("text-sm", "font-semibold");
+  plotTitle.textContent = "Handlungsauszug:";
+
+  const plotText = document.createElement("p");
+  plotText.classList.add("text-xs", "text-gray-700", "leading-snug", "flex-1");
+  plotText.textContent = movie.overview;
+
+  const moreButtonMiddle = document.createElement("button");
+  moreButtonMiddle.classList.add(
+    "mt-1",
+    "px-3",
+    "py-1",
+    "bg-blue-600",
+    "text-white",
+    "text-xs",
+    "rounded-md",
+    "hover:bg-blue-700",
+    "transition",
+    "self-start"
+  );
+  moreButtonMiddle.textContent = "mehr";
+
+  middleSection.append(plotTitle, plotText, moreButtonMiddle);
+
+  // Bottom Section
+  const bottomSection = document.createElement("div");
+  bottomSection.classList.add(
+    "bg-white",
+    "rounded-lg",
+    "p-3",
+    "mx-1",
+    "flex",
+    "flex-col",
+    "gap-2",
+    "shadow-sm",
+    "mt-1"
+  );
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add(
+    "flex",
+    "justify-between",
+    "items-center",
+    "gap-2"
+  );
+
+  const noteButton = document.createElement("button");
+  noteButton.id = "noteButton";
+  noteButton.classList.add(
+    "flex-1",
+    "h-[50px]",
+    "px-3",
+    "py-1",
+    "bg-gray-200",
+    "text-gray-800",
+    "text-xs",
+    "rounded-md",
+    "hover:bg-gray-300",
+    "transition"
+  );
+  noteButton.textContent = storedNote ? "Notiz bearbeiten" : "Notiz";
+
+  const watchlistButton = document.createElement("button");
+  watchlistButton.classList.add(
+    "flex-1",
+    "h-[50px]",
+    "px-3",
+    "py-1",
+    "bg-blue-600",
+    "text-white",
+    "text-xs",
+    "rounded-md",
+    "hover:bg-blue-700",
+    "transition"
+  );
+  watchlistButton.textContent = "Zur Watchlist";
+
+  const seenButton = document.createElement("button");
+  seenButton.id = "seenButton";
+  seenButton.classList.add(
+    "flex-1",
+    "h-[50px]",
+    "px-3",
+    "py-1",
+    "bg-black",
+    "text-white",
+    "text-xs",
+    "rounded-md",
+    "hover:bg-gray-800",
+    "transition"
+  );
+  seenButton.textContent = storedSeen
+    ? "Als ungesehen markieren"
+    : "Bereits gesehen";
+
+  buttonContainer.append(noteButton, watchlistButton, seenButton);
+  bottomSection.appendChild(buttonContainer);
+  flipCardBack.append(topSection, middleSection, bottomSection);
+
+  // Assemble the final card
+  flipCardInner.append(flipCardFront, flipCardBack);
+  movieElement.appendChild(flipCardInner);
   trendingContainer.appendChild(movieElement);
+
+  // Add event listeners
+  seenButton.addEventListener("click", () => {
+    let seen = localStorage.getItem(`movieSeen-${movie.id}`) === "true";
+    seen = !seen;
+    if (seen) {
+      seenOverlay.classList.remove("hidden");
+      seenButton.textContent = "Als ungesehen markieren";
+      localStorage.setItem(`movieSeen-${movie.id}`, "true");
+    } else {
+      seenOverlay.classList.add("hidden");
+      seenButton.textContent = "Bereits gesehen";
+      localStorage.setItem(`movieSeen-${movie.id}`, "false");
+    }
+  });
+
+  noteButton.addEventListener("click", () => {
+    const dialog = document.getElementById("meinDialog");
+    const noteInput = document.getElementById("noteInput");
+    noteInput.value = localStorage.getItem(`movieNote-${movie.id}`) || "";
+    dialog.showModal();
+
+    const form = dialog.querySelector("form");
+    const saveNoteHandler = (e) => {
+      e.preventDefault();
+      const newNote = noteInput.value;
+      localStorage.setItem(`movieNote-${movie.id}`, newNote);
+      noteButton.textContent = newNote.trim() ? "Notiz bearbeiten" : "Notiz";
+      dialog.close();
+      form.removeEventListener("submit", saveNoteHandler);
+    };
+    form.addEventListener("submit", saveNoteHandler);
+  });
 };
 
 function getTrendingMovies() {
@@ -207,15 +404,10 @@ function getTrendingMovies() {
     .then((res) => res.json())
     .then((json) => {
       const movieList = json.results;
-      console.log(movieList);
       console.log("Top 3 Trending Movies:");
       movieList.splice(3);
       movieList.forEach((element) => {
-        // console.log(
-        //   `${element.id}: ${element.title}, Story: ${element.overview}`
-        // );
         addTrendingMovies(element);
-        // console.log(`${IMG_PREFIX}${element.poster_path}`);
       });
     })
     .catch((err) => console.error(err));
