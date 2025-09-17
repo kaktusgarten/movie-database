@@ -1,5 +1,7 @@
 // trending.js / used to load 3 actual trending movies
 
+import { renderCard } from "./render";
+
 // importing dotenv to get variables from .env-file with vite as bundler
 // import dotenv from "dotenv";
 // dotenv.config();
@@ -54,13 +56,9 @@ function getTrendingMovies() {
       const movieList = json.results;
       console.log(movieList);
       console.log("Top 3 Trending Movies:");
-      movieList.splice(3);
+      movieList.splice(4);
       movieList.forEach((element) => {
-        // console.log(
-        //   `${element.id}: ${element.title}, Story: ${element.overview}`
-        // );
-        addTrendingMovies(element);
-        // console.log(`${IMG_PREFIX}${element.poster_path}`);
+        renderCard(element.backdrop_path, element.title);
       });
     })
     .catch((err) => console.error(err));

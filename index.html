@@ -16,6 +16,7 @@
         <p class="text-xl pb-3">Notiz eingeben:</p>
         <form id="notizForm" class="flex flex-row pb-8">
           <input
+            id="noteInput"
             name="notizString"
             type="text"
             placeholder="Notiz eingeben"
@@ -28,7 +29,7 @@
 
       <!-- NAV -->
       <nav
-        class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1 overflow-hidden"
+        class="z-10 p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1 overflow-hidden"
       >
         <div class="navLeft flex items-center">
           <img
@@ -78,9 +79,6 @@
                 </div>
               </form>
             </div>
-            <button id="btnEnterNotizDialog" class="border p-3">
-              Sample Button Dialog
-            </button>
           </div>
         </section>
       </header>
@@ -88,8 +86,11 @@
       <!-- MAIN -->
       <main id="main" class="flex-1">
         <section id="howToUse" class="border p-5">How to use</section>
-        <section id="initalMovie" class="border p-5">
-          Movies – Initial werden hier schon mal Filme angezeigt
+        <section
+          id="initalMovie"
+          class="border p-5 grid xl:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3"
+        >
+          <!-- HIER DIE CARDs-->
         </section>
       </main>
 
