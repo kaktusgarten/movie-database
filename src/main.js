@@ -3,4 +3,3 @@ import { getTrendingMovies } from "./js/trending.js";
 import { getSearchMovies } from "./js/search.js";
 
 getTrendingMovies();
-// getSearchMovies("spiderman");
