@@ -3,6 +3,18 @@ const URL_SEARCH = import.meta.env.VITE_URL_SEARCH;
 const IMG_PREFIX = import.meta.env.VITE_IMG_PREFIX;
 const URL_POST = "&page=1";
 
+import { showFoundedMoviesDialog } from "./helper-modal.js";
+
+const searchValue = document.getElementById("searchForm");
+
+searchValue.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const searchTerm = document.getElementById("searchTerm").value;
+  getSearchMovies(searchTerm);
+});
+
+const dialog = document.createElement("dialog");
+
 // const searchContainer = document.getElementById("search-movies");
 
 // fetch function to catch a special movie
@@ -19,19 +31,19 @@ const getSearchMovies = (searchTerm) => {
   fetch(url, options)
     .then((res) => res.json())
     .then((json) => {
-      const fetchedMovie = json.results;
-      console.log("found movie with id:" + fetchedMovie[0].id);
-      console.log(fetchedMovie);
+      const movieList = json.results;
+      console.log("Search Movies:");
+      let foundedMoviesCode = `<ul>`;
 
-      //   fetchedMovie.forEach((element) => {
-      // console.log(
-      //   `${element.id}: ${element.title}, Story: ${element.overview}`
-      // );
-
-      // addTrendingMovies(element);
-
-      // console.log(`${IMG_PREFIX}${element.poster_path}`);
-      //   });
+      movieList.forEach((element) => {
+        console.log("found: ", element.name);
+        // foundedMovies.push(element.name);
+        foundedMoviesCode += `<li><a href="details.html?id=${
+          element.id
+        }">${element.name.toUpperCase()}</a></li>`;
+      });
+      foundedMoviesCode += `</ul>`;
+      showFoundedMoviesDialog(foundedMoviesCode);
     })
     .catch((err) => console.error(err));
 };

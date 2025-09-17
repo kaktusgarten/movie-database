@@ -1,4 +1,4 @@
-function showDialog(msg, mid) {
+function showOverviewDialog(msg, mid) {
   const dialog = document.createElement("dialog");
   dialog.classList.add("show-dialog");
   dialog.textContent = msg;
@@ -28,4 +28,24 @@ function showDialog(msg, mid) {
   dialog.showModal();
 }
 
-export { showDialog };
+function showFoundedMoviesDialog(codetemplate) {
+  const dialog = document.createElement("dialog");
+  dialog.classList.add("show-dialog");
+  dialog.innerHTML = codetemplate;
+
+  const buttonDiv = document.createElement("div");
+  buttonDiv.classList.add("button-container"); // tbd
+
+  const closeButton = document.createElement("button");
+  closeButton.textContent = "Schließen";
+  closeButton.addEventListener("click", () => {
+    dialog.close();
+  });
+  buttonDiv.appendChild(closeButton);
+  dialog.appendChild(buttonDiv);
+  document.body.appendChild(dialog);
+
+  dialog.showModal();
+}
+
+export { showOverviewDialog, showFoundedMoviesDialog };

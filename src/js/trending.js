@@ -1,6 +1,6 @@
 // trending.js / used to load 3 actual trending movies
 // import "./flipcard.css";
-import { showDialog } from "./helper-modal.js";
+import { showOverviewDialog } from "./helper-modal.js";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_TRENDING = import.meta.env.VITE_URL_TRENDING;
@@ -302,7 +302,7 @@ const addTrendingMovies = (movie) => {
   moreButtonMiddle.textContent = "Details";
   moreButtonMiddle.addEventListener("click", () => {
     // opening dialog-box to show movie.overview and moreLink-Button for further details refering to details.html with movie.id
-    showDialog(movie.overview, movie.id);
+    showOverviewDialog(movie.overview, movie.id);
     // window.location.href = `details.html?id=${movie.id}`; // refactored, passing mid
   });
 
