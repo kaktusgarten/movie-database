@@ -131,6 +131,7 @@ console.log("ERROR");
 const cardWrapper = document.getElementById("initalMovie");
 cardWrapper.addEventListener("click", (e) => {
   if (e.target.matches(".noteButton")) {
-    console.log("Klick");
+    // Klappt jetzt mit dem Öffnen des Modals :-)
+    dialog.showModal();
   }
 });
