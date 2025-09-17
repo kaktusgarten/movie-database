@@ -181,11 +181,11 @@ const addTrendingMovies = (movie) => {
   const detailsContainer = document.createElement("div");
   detailsContainer.classList.add("text-xs", "text-gray-700", "leading-snug");
   detailsContainer.innerHTML = `
-    <p><span class="font-semibold">Genre:</span> Action</p>
     <p><span class="font-semibold">Erscheinung:</span> ${movie.release_date}</p>
-    <p><span class="font-semibold">Länge:</span>${movie.runtime} Minuten</p>
-    <p><span class="font-semibold">Sprache:</span> deutsch, englisch</p>
-    <p><span class="font-semibold">Regie:</span> Röland Emmerich</p>
+    <p><span class="font-semibold">Originalsprache:</span> ${movie.original_language}</p>
+    <p><span class="font-semibold">Sprache:</span> de</p>
+    <p><span class="font-semibold">Originaltitel:</span> ${movie.original_title}</p>
+    <p><span class="font-semibold">Anzahl Stimmen:</span> ${movie.vote_count}</p>
   `;
 
   const fskDiv = document.createElement("div");
@@ -330,7 +330,7 @@ const addTrendingMovies = (movie) => {
   watchlistButton.textContent = "Zur Watchlist";
 
   const seenButton = document.createElement("button");
-  seenButton.id = "seenButton";
+  seenButton.id = `seenButton${movie.id}`;
   seenButton.classList.add(
     "flex-1",
     "h-[50px]",
