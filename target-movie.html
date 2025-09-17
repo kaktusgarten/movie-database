@@ -1,76 +1,248 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Database</title>
   </head>
-  <body class="bg-gray-100 text-gray-900">
-    <!-- Hero Section -->
-    <section class="relative h-[450px] w-full">
-      <!-- Hintergrundbild -->
-      <img
-        src="https://upload.wikimedia.org/wikipedia/en/8/87/Ringstrilogyposter.jpg"
-        alt="Film Hero"
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-      <!-- Overlay -->
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"
-      ></div>
+  <style>
+    .blockbuster-font {
+      font-family: "Bebas Neue", sans-serif;
+      letter-spacing: 1px;
+    }
+    .font-text {
+      font-family: "Montserrat", sans-serif;
+    }
+  </style>
+  <body>
+    <div id="app" class="container min-h-screen border mx-auto flex flex-col">
+      <!-- DIALOG für Notizen -->
+      <dialog
+        id="meinDialog"
+        class="sticky top-0 m-auto p-5 border rounded-3xl flex flex-col"
+      >
+        <p class="text-xl pb-3">Notiz eingeben:</p>
+        <form id="notizForm" class="flex flex-row pb-8">
+          <input
+            id="noteInput"
+            name="notizString"
+            type="text"
+            placeholder="Notiz eingeben"
+            class="border p-2 mr-4"
+          />
+          <button id="btnSearch" class="border p-2">Speichern</button>
+        </form>
+        <button id="btnCloseDialog" class="border p-2">Schließen</button>
+      </dialog>
 
-      <!-- Content -->
-      <div class="relative z-10 h-full flex items-center px-8 lg:px-16">
-        <div class="max-w-2xl">
-          <h1 class="text-4xl lg:text-6xl font-bold text-white mb-4">
-            Herr der Ringe
-          </h1>
-          <p class="text-lg text-gray-200 mb-2">Fantasy • 2001 • 178 Min</p>
-          <p class="text-gray-300">Sprache: Deutsch, Englisch</p>
-          <div class="mt-6 flex gap-4">
-            <button
-              class="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
-            >
-              Jetzt ansehen
-            </button>
-            <button
-              class="px-5 py-2 bg-gray-200 text-gray-900 rounded-lg shadow hover:bg-gray-300 transition"
-            >
-              Zur Watchlist
-            </button>
+      <!-- NAV -->
+      <nav
+        class="z-1 p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1 overflow-hidden"
+      >
+        <div class="navLeft flex items-center">
+          <img
+            src="./public/img/logo.jpg"
+            alt="LOGO"
+            class="mr-5 h-[3em] w-[3em] object-contain"
+          />
+          <div>
+            <ul id="headerNavLinks" class="flex blockbuster-font">
+              <li class="p-2">
+                <a
+                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="index.html"
+                  title="Start"
+                  >Start</a
+                >
+              </li>
+              <li class="p-2">
+                <a
+                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="journal.html"
+                  title="Journal"
+                  >Journal</a
+                >
+              </li>
+              <!-- ######## Dummy: eingeführt zum testen -->
+              <li class="p-2">
+                <a
+                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="target-movie.html"
+                  title="Journal"
+                  >Filmseite</a
+                >
+              </li>
+              <!-- ######### End Dummy -->
+              <li class="p-2">
+                <a
+                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="index.html"
+                  title="Kontakt"
+                  >Kontakt</a
+                >
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="navRight flex flex-col items-end space-y-2">
+          <div>
+            <button class="border p-1">LOG IN</button>
+            <button class="border p-1">SIGN UP</button>
+          </div>
+        </div>
+      </nav>
 
-    <!-- Content Section -->
-    <main class="px-8 lg:px-16 py-10 max-w-5xl mx-auto">
-      <h2 class="text-2xl font-bold mb-4">Über den Film</h2>
-      <p class="text-gray-700 leading-relaxed mb-8">
-        Ein Hobbit begibt sich auf eine epische Reise, um einen Ring zu
-        zerstören. Begleitet wird er von einer Gemeinschaft aus Gefährten, die
-        den Lauf der Welt verändern.
-      </p>
-
-      <h2 class="text-2xl font-bold mb-4">Besetzung</h2>
-      <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-        <li class="text-gray-800">Elijah Wood – Frodo</li>
-        <li class="text-gray-800">Ian McKellen – Gandalf</li>
-        <li class="text-gray-800">Viggo Mortensen – Aragorn</li>
-        <li class="text-gray-800">Orlando Bloom – Legolas</li>
-      </ul>
-
-      <h2 class="text-2xl font-bold mb-4">Trailer</h2>
-      <div class="aspect-video bg-black rounded-lg overflow-hidden shadow">
-        <iframe
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/V75dMMIW2B4"
-          title="YouTube trailer"
-          allowfullscreen
+      <!-- HEADER -->
+      <header id="header">
+        <!-- HERO -->
+        <section
+          id="heroSection"
+          class="relative overflow-hidden min-h-[400px]"
         >
-        </iframe>
-      </div>
-    </main>
+          <!-- Hintergrund-Video -->
+          <div class="absolute inset-0 w-full h-full overflow-hidden -z-10">
+            <iframe
+              class="absolute top-1/2 left-1/2 min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 scale-[2.5]"
+              src="https://www.youtube.com/embed/z_mGY35pPP4?autoplay=1&mute=1&loop=1&playlist=z_mGY35pPP4&controls=0&showinfo=0&modestbranding=1"
+              title="YouTube video player"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <!-- Inhalt -->
+          <div
+            class="relative z-0 flex flex-col sm:flex-row items-start p-6 sm:p-[6em] bg-black/40 gap-6"
+          >
+            <!-- Textbereich -->
+            <div class="flex flex-col gap-2 max-w-xl">
+              <h1 class="text-4xl sm:text-5xl text-white blockbuster-font">
+                Aktueller Filmtitel
+              </h1>
+              <p class="text-white text-lg sm:text-xl">
+                Genre: Action, FSK: 12, Laufzeit: 120 Min, Erscheinungsdatum:
+                17.09.2025
+              </p>
+              <div class="flex flex-row gap-4 mt-4">
+                <button
+                  class="px-6 py-2 bg-blue-600 text-white font-blockbuster rounded-lg shadow-lg shadow-blue-500/50 hover:shadow-blue-400/70 transition duration-300"
+                >
+                  Zur Watchlist
+                </button>
+                <button
+                  class="px-6 py-2 bg-green-600 text-white font-blockbuster rounded-lg shadow-lg shadow-green-500/50 hover:shadow-green-400/70 transition duration-300"
+                >
+                  Notiz
+                </button>
+                <button
+                  class="px-6 py-2 bg-red-600 text-white font-blockbuster rounded-lg shadow-lg shadow-red-500/50 hover:shadow-red-400/70 transition duration-300"
+                >
+                  Bereits gesehen
+                </button>
+              </div>
+            </div>
+
+            <!-- Plakat & Bewertung -->
+            <div class="flex flex-col items-center gap-4">
+              <!-- 3D Plakat -->
+              <div
+                id="poster"
+                class="w-[200px] h-[290px] rounded-2xl shadow-2xl cursor-pointer"
+              >
+                <img
+                  src="https://i.pinimg.com/1200x/d3/c6/9a/d3c69a7a98cba59db3a32d7a9ce6ef7d.jpg"
+                  alt="Plakat"
+                  class="w-full h-full object-cover rounded-2xl"
+                />
+              </div>
+
+              <!-- Durchschnittsbewertung -->
+              <div
+                class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg text-lg shadow-md"
+              >
+                ⭐ 8.7/10
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+      <!-- Content Section -->
+      <main class="px-8 lg:px-16 py-10 max-w-5xl mx-auto">
+        <h2 class="blockbuster-font text-2xl font-bold mb-4">Filmdetails</h2>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+          <li class="text-gray-800">Originaltitel:</li>
+          <li class="text-gray-800">Lauflänge:</li>
+          <li class="text-gray-800">Ersterscheinung:</li>
+          <li class="text-gray-800">Sprachen:</li>
+          <li class="text-gray-800">Drehbuch:</li>
+          <li class="text-gray-800">Regie:</li>
+          <li class="text-gray-800">Herkunftsland:</li>
+          <li class="text-gray-800">Produktionsfirmen:</li>
+        </ul>
+        <h2 class="blockbuster-font text-2xl font-bold mb-4">Über den Film</h2>
+        <p class="text-gray-700 leading-relaxed mb-8">
+          Ein Hobbit begibt sich auf eine epische Reise, um einen Ring zu
+          zerstören. Begleitet wird er von einer Gemeinschaft aus Gefährten, die
+          den Lauf der Welt verändern.
+        </p>
+
+        <h2 class="blockbuster-font text-2xl font-bold mb-4">Hauptbesetzung</h2>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+          <li class="text-gray-800">Elijah Wood – Frodo</li>
+          <li class="text-gray-800">Ian McKellen – Gandalf</li>
+          <li class="text-gray-800">Viggo Mortensen – Aragorn</li>
+          <li class="text-gray-800">Orlando Bloom – Legolas</li>
+        </ul>
+
+        <h2 class="blockbuster-font text-2xl font-bold mb-4">Trailer</h2>
+        <div class="aspect-video bg-black rounded-lg overflow-hidden shadow">
+          <iframe
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/V75dMMIW2B4"
+            title="YouTube trailer"
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer id="footer" class="overflow-hidden">
+        <nav
+          class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+        >
+          <div class="navLeft flex items-center">
+            <img
+              src="./public/img/logo.jpg"
+              alt="LOGO"
+              class="mr-5 h-[3em] w-[3em] object-contain"
+            />
+            <div>
+              <ul id="headerNavLinks" class="flex">
+                <li class="p-2">
+                  <a href="index.html" title="Start">Start</a>
+                </li>
+                <li class="p-2">
+                  <a href="journal.html" title="Journal">Journal</a>
+                </li>
+                <li class="p-2">
+                  <a href="index.html" title="Kontakt">Kontakt</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="navRight flex flex-col items-end space-y-2">
+            <div>(c) 2025</div>
+          </div>
+        </nav>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
