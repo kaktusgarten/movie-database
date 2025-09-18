@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Flip Card Goldene Rückseite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+    </style>
+    <link rel="stylesheet" href="./src/flipcard.css" />
+  </head>
+  <body class="bg-black min-h-screen flex items-center justify-center">
+    <section class="flex items-start gap-6 flex-wrap justify-center">
+      <div class="flip-card w-[385px] h-[580px] relative">
+        <div class="flip-card-inner">
+          <!-- Vorderseite -->
+          <div class="flip-card-front p-2 rounded-xl relative">
+            <div class="h-[480px] w-full relative overflow-hidden rounded-xl">
+              <img
+                src="https://tse2.mm.bing.net/th/id/OIP.9kHjYBavvuQxkHvsLmk1DAHaLP?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Film Poster"
+                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105 rounded-xl border-4 border-gray-200"
+              />
+              <div
+                id="rating-badge"
+                class="absolute top-3 right-3 px-3 py-1.5 rounded-full text-white text-base font-bold shadow-lg ring-2 ring-white/70 transform transition-transform duration-300 hover:scale-110"
+              >
+                0.0
+              </div>
+
+              <!-- Bereits gesehen Overlay -->
+              <div id="seen-overlay" class="hidden">Bereits gesehen</div>
+            </div>
+            <div class="p-4 flex flex-col h-[80px] relative">
+              <h2 class="text-2xl font-bold mb-2 text-black">Filmtitel</h2>
+              <div class="text-gray-700 flex justify-start text-sm mt-auto">
+                <span class="m-2">01.01.2025</span>
+                <span class="m-2">Action</span>
+              </div>
+              <div class="corner"></div>
+            </div>
+          </div>
+
+          <!-- Rückseite -->
+          <div
+            class="flip-card-back flex flex-col p-2 rounded-xl border-2 border-white/20 text-gray-900"
+          >
+            <!-- Obere Sektion -->
+            <div
+              class="bg-white rounded-lg p-3 mx-1 flex flex-col gap-1 shadow-sm"
+            >
+              <div class="grid grid-cols-3 gap-3">
+                <!-- Linke Spalte -->
+                <div class="col-span-2 flex flex-col gap-0.5">
+                  <h2 class="text-base font-bold">Star Wars op Kölch</h2>
+                  <div class="text-xs text-gray-700 leading-snug">
+                    <p><span class="font-semibold">Genre:</span> SciFi</p>
+                    <p>
+                      <span class="font-semibold">Erscheinung:</span> 22.08.2015
+                    </p>
+                    <p><span class="font-semibold">Länge:</span> 207 Minuten</p>
+                    <p>
+                      <span class="font-semibold">Sprache:</span> deutsch,
+                      englisch
+                    </p>
+                    <p>
+                      <span class="font-semibold">Regie:</span> Röland Emmerich
+                    </p>
+
+                    <!-- FSK Logo -->
+                    <div class="mt-2">
+                      <img
+                        id="fsk-logo"
+                        src=""
+                        alt="FSK"
+                        class="w-[45px] h-[45px] object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Rechte Spalte -->
+                <div class="col-span-1 flex items-center justify-center">
+                  <img
+                    src="https://tse2.mm.bing.net/th/id/OIP.9kHjYBavvuQxkHvsLmk1DAHaLP?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                    alt="Poster Thumbnail"
+                    class="w-full h-auto rounded-md shadow object-cover"
+                  />
+                </div>
+              </div>
+
+              <!-- Mehr-Button -->
+              <button
+                class="mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
+              >
+                mehr
+              </button>
+            </div>
+
+            <!-- Mittlere Sektion -->
+            <div
+              class="bg-white rounded-lg p-3 mx-1 flex flex-col gap-1 shadow-sm mt-1 flex-1"
+            >
+              <h3 class="text-sm font-semibold">Handlungsauszug:</h3>
+
+              <p class="text-xs text-gray-700 leading-snug flex-1">
+                - Blindtext - Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit.
+              </p>
+              <button
+                class="mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
+              >
+                mehr
+              </button>
+            </div>
+
+            <!-- Untere Sektion -->
+            <div
+              class="bg-white rounded-lg p-3 mx-1 flex flex-col gap-2 shadow-sm mt-1"
+            >
+              <div class="flex justify-between items-center gap-2">
+                <button
+                  id="noteButton"
+                  onclick="openModal()"
+                  class="flex-1 h-[50px] px-3 py-1 bg-gray-200 text-gray-800 text-xs rounded-md hover:bg-gray-300 transition"
+                >
+                  Notiz
+                </button>
+                <button
+                  class="flex-1 h-[50px] px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition"
+                >
+                  Zur Watchlist
+                </button>
+                <button
+                  id="seenButton"
+                  onclick="toggleSeen()"
+                  class="flex-1 h-[50px] px-3 py-1 bg-black text-white text-xs rounded-md hover:bg-gray-800 transition"
+                >
+                  Bereits gesehen
+                </button>
+              </div>
+            </div>
+
+            <!-- Notiz PopUP -->
+            <div
+              id="notizModal"
+              class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50"
+            >
+              <div
+                class="bg-white rounded-xl shadow-xl w-[90%] max-w-md p-6 relative"
+              >
+                <button
+                  onclick="closeModal()"
+                  class="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                >
+                  ✕
+                </button>
+                <h2 class="text-lg font-bold mb-3">Notiz hinzufügen</h2>
+                <form onsubmit="saveNote(event)" class="flex flex-col gap-3">
+                  <textarea
+                    id="noteInput"
+                    rows="5"
+                    class="w-full p-2 border rounded-md text-sm focus:ring-2 focus:ring-blue-500"
+                    placeholder="Deine Notiz..."
+                  ></textarea>
+                  <div class="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      onclick="closeModal()"
+                      class="px-3 py-1 bg-gray-200 rounded-md text-sm hover:bg-gray-300"
+                    >
+                      Abbrechen
+                    </button>
+                    <button
+                      type="submit"
+                      class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
+                    >
+                      Speichern
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <script src="testme.js"></script> -->
+    <!-- 
+    <script>
+      // Rating Badge Farbe
+      function getRatingColor(rating) {
+        rating = Math.max(0, Math.min(10, rating));
+        const palette = [
+          { max: 0.5, color: "bg-red-900" },
+          { max: 1.5, color: "bg-red-700" },
+          { max: 2.5, color: "bg-red-600" },
+          { max: 3.5, color: "bg-orange-600" },
+          { max: 4.5, color: "bg-orange-500" },
+          { max: 5.5, color: "bg-yellow-500" },
+          { max: 6.5, color: "bg-yellow-400" },
+          { max: 7.5, color: "bg-lime-500" },
+          { max: 8.5, color: "bg-green-500" },
+          { max: 9.5, color: "bg-green-600" },
+          { max: 10, color: "bg-green-700" },
+        ];
+        for (let step of palette) {
+          if (rating <= step.max) return step.color;
+        }
+        return "bg-gray-400";
+      }
+
+      const rating = 7.6;
+      const badge = document.getElementById("rating-badge");
+      badge.textContent = rating.toFixed(1).replace(".", ",");
+      badge.classList.add(getRatingColor(rating));
+
+      // FSK Logo
+      function setFSKLogo(fsk) {
+        const fskLogo = document.getElementById("fsk-logo");
+        let src = "";
+        switch (fsk) {
+          case 0:
+            src =
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/FSK_0.svg/900px-FSK_0.svg.png";
+            break;
+          case 6:
+            src =
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/FSK_6.svg/900px-FSK_6.svg.png";
+            break;
+          case 12:
+            src =
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/FSK_12.svg/900px-FSK_12.svg.png";
+            break;
+          case 16:
+            src =
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/FSK_16.svg/900px-FSK_16.svg.png";
+            break;
+          case 18:
+            src =
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/FSK_18.svg/900px-FSK_18.svg.png";
+            break;
+          default:
+            src = "./public/img/fsk0.svg";
+        }
+        fskLogo.src = src;
+      }
+      const fskWert = 12;
+      setFSKLogo(fskWert);
+
+      // Notiz PopUp
+      let noteSaved = false;
+      let savedNote = localStorage.getItem("movieNote") || "";
+      if (savedNote) {
+        noteSaved = true;
+        document.getElementById("noteButton").textContent = "Notiz bearbeiten";
+      }
+
+      function openModal() {
+        document.getElementById("notizModal").classList.remove("hidden");
+        if (noteSaved) {
+          document.getElementById("noteInput").value = savedNote;
+        }
+      }
+
+      function closeModal() {
+        document.getElementById("notizModal").classList.add("hidden");
+      }
+
+      function saveNote(e) {
+        e.preventDefault();
+        savedNote = document.getElementById("noteInput").value;
+        if (savedNote.trim() !== "") {
+          noteSaved = true;
+          localStorage.setItem("movieNote", savedNote);
+          document.getElementById("noteButton").textContent =
+            "Notiz bearbeiten";
+        }
+        closeModal();
+      }
+
+      // Bereits gesehen
+      let seen = false;
+      const storedSeen = localStorage.getItem("movieSeen");
+      if (storedSeen === "true") {
+        seen = true;
+        document.getElementById("seen-overlay").classList.remove("hidden");
+        document.getElementById("seenButton").textContent =
+          "Als ungesehen markieren";
+      }
+
+      function toggleSeen() {
+        const overlay = document.getElementById("seen-overlay");
+        const button = document.getElementById("seenButton");
+        seen = !seen;
+        if (seen) {
+          overlay.classList.remove("hidden");
+          button.textContent = "Als ungesehen markieren";
+          localStorage.setItem("movieSeen", "true");
+        } else {
+          overlay.classList.add("hidden");
+          button.textContent = "Bereits gesehen";
+          localStorage.setItem("movieSeen", "false");
+        }
+      }
+    </script> -->
+  </body>
+</html>

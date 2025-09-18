@@ -16,7 +16,7 @@ const dialog = document.createElement("dialog");
 
 // fetch function to catch via searchterm
 const getSearchMovies = (searchTerm) => {
-  const url = `${URL_SEARCH}${searchTerm}${URL_POST}`;
+  const url = `${URL_SEARCH}${searchTerm}`;
   const options = {
     method: "GET",
     headers: {
@@ -35,9 +35,7 @@ const getSearchMovies = (searchTerm) => {
       movieList.forEach((element) => {
         console.log("found: ", element.name);
         // foundedMovies.push(element.name);
-        foundedMoviesCode += `<li><a href="target-movie.html?id=${
-          element.id
-        }">${element.name.toUpperCase()}</a></li>`;
+        foundedMoviesCode += `<li><a href="target-movie.html?id=${element.id}">${element.title}</a></li>`;
       });
       foundedMoviesCode += `</ul>`;
       if (movieList.length === 0) {

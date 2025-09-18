@@ -127,14 +127,14 @@ async function getMovieDetails(movieId) {
       <main class="px-8 lg:px-16 py-10 max-w-5xl mx-auto">
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Filmdetails</h2>
         <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-          <li class="text-gray-800">Originaltitel:</li>
-          <li class="text-gray-800">Lauflänge:</li>
-          <li class="text-gray-800">Ersterscheinung:</li>
-          <li class="text-gray-800">Sprachen:</li>
-          <li class="text-gray-800">Drehbuch:</li>
-          <li class="text-gray-800">Regie:</li>
-          <li class="text-gray-800">Herkunftsland:</li>
-          <li class="text-gray-800">Produktionsfirmen:</li>
+          <li class="text-gray-800">Originaltitel: ${original_title}</li>
+          <li class="text-gray-800">Lauflänge: ${runtime}</li>
+          <li class="text-gray-800">Ersterscheinung: ${release_date}</li>
+          <li class="text-gray-800">Sprachen: ${spoken_languages}</li>
+          <li class="text-gray-800">Drehbuch: ${original_language}</li>
+          <li class="text-gray-800">Regie: ${production_companies}</li>
+          <li class="text-gray-800">Herkunftsland: ${production_countries}</li>
+          <li class="text-gray-800">Produktionsfirmen: ${production_companies[0].name}</li>
         </ul>
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Über den Film</h2>
         <p class="text-gray-700 leading-relaxed mb-8">
