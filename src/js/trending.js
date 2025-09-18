@@ -102,10 +102,13 @@ const addTrendingMovies = (movie) => {
   const seenOverlay = document.createElement("div");
   seenOverlay.id = "seen-overlay";
   seenOverlay.classList.add("hidden");
-  if (storedSeen) {
+  seenOverlay.style.display = "none";
+  if (!storedSeen) {
     seenOverlay.classList.remove("hidden");
+  } else {
+    seenOverlay.textContent = "Bereits gesehen";
+    seenOverlay.style.display = "";
   }
-  seenOverlay.textContent = "Bereits gesehen";
 
   imageContainer.append(posterImg, voteBadge, seenOverlay);
 
