@@ -1,4 +1,5 @@
 import "./static/style.css";
+document.getElementById("app").style.justifyContent = "space-between"; // :3
 import { getTrendingMovies } from "./js/trending.js";
 import { getSearchMovies } from "./js/search.js";
 

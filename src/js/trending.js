@@ -450,7 +450,7 @@ function getTrendingMovies() {
     .then((json) => {
       const movieList = json.results;
       console.log("Top 3 Trending Movies:");
-      movieList.splice(3);
+      movieList.splice(9);
       movieList.forEach((element) => {
         addTrendingMovies(element);
       });

@@ -36,7 +36,7 @@ function getClassByRate(vote) {
   return "bg-gray-400";
 }
 
-// A function to fetch movie details from the TMDB API
+// to refactor > helper-function
 async function getMovieDetails(movieId) {
   const url = `${URL_DETAILS}/${movieId}?${LANG_POST}`;
   const options = {
@@ -55,17 +55,17 @@ async function getMovieDetails(movieId) {
       const title = data.title;
       const overview = data.overview;
       const poster_path = data.poster_path;
-      const backdrop_path = data.backdrop_path;
+      const backdrop_path = data.backdrop_path; // check
       const release_date = data.release_date;
       const runtime = data.runtime;
       const genres = data.genres;
       const vote_average = data.vote_average;
-      const vote_count = data.vote_count;
+      const vote_count = data.vote_count; // check
       const production_companies = data.production_companies;
       const production_countries = data.production_countries;
       const spoken_languages = data.spoken_languages;
-      const rating = data.rating;
-      const original_language = data.original_language;
+      const rating = data.rating; // check
+      const original_language = data.original_language; // check
       const original_title = data.original_title;
       const isAdult = data.adult;
       const reflink = data.homepage;
