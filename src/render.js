@@ -99,7 +99,7 @@ export const renderCard = (img, title, id) => {
                 elit.
               </p>
               <button
-                class="mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
+                class="[ mehrButton ] mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
               >
                 mehr
               </button>
@@ -121,7 +121,7 @@ export const renderCard = (img, title, id) => {
                   Zur Watchlist
                 </button>
                 <button
-                  class="[ seenbutton ] flex-1 h-[50px] px-3 py-1 bg-black text-white text-xs rounded-md hover:bg-gray-800 transition"
+                  class="[ seenButton ] flex-1 h-[50px] px-3 py-1 bg-black text-white text-xs rounded-md hover:bg-gray-800 transition"
                 >
                   Bereits gesehen
                 </button>
