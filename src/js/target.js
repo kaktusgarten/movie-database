@@ -36,6 +36,34 @@ function getClassByRate(vote) {
   return "bg-gray-400";
 }
 
+function handleWatchlist() {
+  const watchlist = localStorage.getItem("watchlist") || "[]";
+  const parsedWatchlist = JSON.parse(watchlist);
+  parsedWatchlist.push(movie);
+  localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
+  console.log("Watchlist button clicked");
+}
+
+function handleNote() {
+  // code goes here
+  console.log("Note button clicked");
+}
+
+function handleSeen() {
+  let seen = localStorage.getItem(`movieSeen-${movie.id}`) === "true";
+  seen = !seen;
+  if (seen) {
+    seenOverlay.classList.remove("hidden");
+    seenButton.textContent = "Als ungesehen markieren";
+    localStorage.setItem(`movieSeen-${movie.id}`, "true");
+  } else {
+    seenOverlay.classList.add("hidden");
+    seenButton.textContent = "Bereits gesehen";
+    localStorage.setItem(`movieSeen-${movie.id}`, "false");
+  }
+  console.log("Seen button clicked");
+}
+
 // to refactor > helper-function
 async function getMovieDetails(movieId) {
   const url = `${URL_DETAILS}/${movieId}?${LANG_POST}`;
@@ -108,17 +136,20 @@ async function getMovieDetails(movieId) {
               </p>
               <div class="flex flex-row gap-4 mt-4">
                 <button
-                  class="px-6 py-2 bg-blue-600 text-white font-blockbuster rounded-lg shadow-lg shadow-blue-500/50 hover:shadow-blue-400/70 transition duration-300"
+                onclick="handleWatchlist()"
+                  class="px-6 py-2 bg-blue-600 text-white font-blockbuster rounded-lg shadow-lg shadow-blue-500/50 hover:shadow-blue-400/70 transition duration-300 watchlistButton"
                 >
                   Zur Watchlist
                 </button>
                 <button
-                  class="px-6 py-2 bg-green-600 text-white font-blockbuster rounded-lg shadow-lg shadow-green-500/50 hover:shadow-green-400/70 transition duration-300"
+                onclick="handleNote()"
+                  class="px-6 py-2 bg-green-600 text-white font-blockbuster rounded-lg shadow-lg shadow-green-500/50 hover:shadow-green-400/70 transition duration-300 noteButton"
                 >
                   Notiz
                 </button>
                 <button
-                  class="px-6 py-2 bg-red-600 text-white font-blockbuster rounded-lg shadow-lg shadow-red-500/50 hover:shadow-red-400/70 transition duration-300"
+                onclick="handleSeen()"
+                  class="px-6 py-2 bg-red-600 text-white font-blockbuster rounded-lg shadow-lg shadow-red-500/50 hover:shadow-red-400/70 transition duration-300 seenButton"
                 >
                   Bereits gesehen
                 </button>
@@ -193,6 +224,8 @@ async function getMovieDetails(movieId) {
       </main>
 `;
       targetContainer.innerHTML = targetHTML;
+
+      // is it necessary?
       return null;
     })
     .catch((err) => console.error(err));
@@ -201,3 +234,6 @@ async function getMovieDetails(movieId) {
 const mid = getMovieId();
 console.log(mid);
 getMovieDetails(mid);
+
+// function to start after page loaded
+// not yet

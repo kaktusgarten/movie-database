@@ -8,7 +8,13 @@ dialog {
 dialog[open] {
   display: flex; /* sichtbar wenn open */
 }
-
+.blockbuster-font {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+}
+.font-text {
+  font-family: "Montserrat", sans-serif;
+}
 .show-dialog {
   border: none;
   border-radius: 8px;
