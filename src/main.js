@@ -143,4 +143,14 @@ mainPage.addEventListener("click", (e) => {
     cardId = e.target.closest(".flip-card").dataset.id;
     console.log("WatchList Knopf, CardID: " + cardId);
   }
+  if (e.target.matches(".seenButton")) {
+    cardId = e.target.closest(".flip-card").dataset.id;
+    console.log("Bereits gesehen Button, CardID: " + cardId);
+  }
+  if (e.target.matches(".mehrButton")) {
+    cardId = e.target.closest(".flip-card").dataset.id;
+    console.log("Mehr anzeigen Button, CardID: " + cardId);
+    // In der Borwser URL wird (erstmal) id="filmID" übergeben.. können wir auch anders machen. So passiert zumindest schon mal was bei Button-Klick
+    window.location.href = `/target-movie.html?id=${cardId}`;
+  }
 });

@@ -17,7 +17,7 @@ function renderMovie(movie) {
 
   return `
         <div data-id="${movie.id}"
-          class="movie-row flex items-center gap-4 rounded-xl px-4 py-2 h-[100px]
+          class="mb-4 movie-row flex items-center gap-4 rounded-xl px-4 py-2 h-[100px]
                  bg-gradient-to-r from-gray-100 to-gray-200 
                  hover:from-gray-200 hover:to-gray-300
                  transition-all duration-300 shadow-sm hover:shadow-lg 
