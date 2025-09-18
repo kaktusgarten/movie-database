@@ -58,7 +58,7 @@ function getTrendingMovies() {
       console.log("Top 3 Trending Movies:");
       movieList.splice(4);
       movieList.forEach((element) => {
-        renderCard(element.backdrop_path, element.title);
+        renderCard(element.backdrop_path, element.title, element.id);
       });
     })
     .catch((err) => console.error(err));
