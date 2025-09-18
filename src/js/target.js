@@ -184,7 +184,7 @@ async function getMovieDetails(movieId) {
         <div class="aspect-video bg-black rounded-lg overflow-hidden shadow">
           <iframe
             class="w-full h-full"
-            src="https://www.youtube.com/embed/V75dMMIW2B4"
+            src="https://www.youtube.com/results?search_query=${title}+trailer"
             title="YouTube trailer"
             allowfullscreen
           >
