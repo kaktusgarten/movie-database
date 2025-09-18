@@ -14,7 +14,6 @@ function getMovieId() {
 }
 
 // to refactor > helper-function
-
 function getClassByRate(vote) {
   vote = Math.max(0, Math.min(10, vote));
   const palette = [
@@ -34,34 +33,6 @@ function getClassByRate(vote) {
     if (vote <= step.max) return step.color;
   }
   return "bg-gray-400";
-}
-
-function handleWatchlist() {
-  const watchlist = localStorage.getItem("watchlist") || "[]";
-  const parsedWatchlist = JSON.parse(watchlist);
-  parsedWatchlist.push(movie);
-  localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
-  console.log("Watchlist button clicked");
-}
-
-function handleNote() {
-  // code goes here
-  console.log("Note button clicked");
-}
-
-function handleSeen() {
-  let seen = localStorage.getItem(`movieSeen-${movie.id}`) === "true";
-  seen = !seen;
-  if (seen) {
-    seenOverlay.classList.remove("hidden");
-    seenButton.textContent = "Als ungesehen markieren";
-    localStorage.setItem(`movieSeen-${movie.id}`, "true");
-  } else {
-    seenOverlay.classList.add("hidden");
-    seenButton.textContent = "Bereits gesehen";
-    localStorage.setItem(`movieSeen-${movie.id}`, "false");
-  }
-  console.log("Seen button clicked");
 }
 
 // to refactor > helper-function
@@ -98,16 +69,14 @@ async function getMovieDetails(movieId) {
       const isAdult = data.adult;
       const reflink = data.homepage;
       const budget = data.budget;
+      const movie = data; // Define movie here for the functions
 
       const targetHTML = `
-<!-- HEADER -->
-      <header id="header">
-        <!-- HERO -->
+<header id="header">
         <section
           id="heroSection"
           class="relative overflow-hidden min-h-[400px]"
         >
-          <!-- Hintergrund-Video -->
           <div class="absolute inset-0 w-full h-full overflow-hidden -z-10">
             <iframe
               class="absolute top-1/2 left-1/2 min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 scale-[2.5]"
@@ -119,11 +88,9 @@ async function getMovieDetails(movieId) {
             ></iframe>
           </div>
 
-          <!-- Inhalt -->
           <div
             class="relative z-0 flex flex-col sm:flex-row items-start p-6 sm:p-[6em] bg-black/40 gap-6"
           >
-            <!-- Textbereich -->
             <div class="flex flex-col gap-2 max-w-xl">
               <h1 class="text-4xl sm:text-5xl text-white blockbuster-font">
                 ${title}
@@ -136,19 +103,16 @@ async function getMovieDetails(movieId) {
               </p>
               <div class="flex flex-row gap-4 mt-4">
                 <button
-                onclick="handleWatchlist()"
                   class="px-6 py-2 bg-blue-600 text-white font-blockbuster rounded-lg shadow-lg shadow-blue-500/50 hover:shadow-blue-400/70 transition duration-300 watchlistButton"
                 >
                   Zur Watchlist
                 </button>
                 <button
-                onclick="handleNote()"
                   class="px-6 py-2 bg-green-600 text-white font-blockbuster rounded-lg shadow-lg shadow-green-500/50 hover:shadow-green-400/70 transition duration-300 noteButton"
                 >
                   Notiz
                 </button>
                 <button
-                onclick="handleSeen()"
                   class="px-6 py-2 bg-red-600 text-white font-blockbuster rounded-lg shadow-lg shadow-red-500/50 hover:shadow-red-400/70 transition duration-300 seenButton"
                 >
                   Bereits gesehen
@@ -156,9 +120,7 @@ async function getMovieDetails(movieId) {
               </div>
             </div>
 
-            <!-- Plakat & Bewertung -->
             <div class="flex flex-col items-center gap-4">
-              <!-- 3D Plakat -->
               <div
                 id="poster"
                 class="w-[200px] h-[290px] rounded-2xl shadow-2xl cursor-pointer"
@@ -170,7 +132,6 @@ async function getMovieDetails(movieId) {
                 />
               </div>
 
-              <!-- Durchschnittsbewertung -->
               <div
                 class="${getClassByRate(
                   vote_average
@@ -182,7 +143,6 @@ async function getMovieDetails(movieId) {
           </div>
         </section>
       </header>
-      <!-- Content Section -->
       <main class="px-8 lg:px-16 py-10 max-w-5xl mx-auto">
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Filmdetails</h2>
         <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
@@ -225,8 +185,52 @@ async function getMovieDetails(movieId) {
 `;
       targetContainer.innerHTML = targetHTML;
 
-      // is it necessary?
-      return null;
+      // Get the buttons after they have been added to the DOM
+      const watchlistButton = document.querySelector(".watchlistButton");
+      const noteButton = document.querySelector(".noteButton");
+      const seenButton = document.querySelector(".seenButton");
+      const seenOverlay = document.getElementById("seenOverlay"); // Assuming this element exists in your HTML
+
+      // Define the handler functions inside here so they can access the 'movie' variable
+      function handleWatchlist() {
+        const watchlist = localStorage.getItem("watchlist") || "[]";
+        const parsedWatchlist = JSON.parse(watchlist);
+
+        if (parsedWatchlist.some((m) => m.id === movie.id)) {
+          watchlistButton.textContent = "Zur Watchlist";
+          parsedWatchlist.push(movie);
+          localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
+          console.log("Watchlist button clicked");
+        } else {
+          watchlistButton.textContent = "aus Watchlist entfernen";
+          parsedWatchlist.splice(parsedWatchlist.indexOf(movie), 1);
+          localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
+          console.log("Watchlist button clicked");
+        }
+      }
+
+      function handleNote() {
+        // code goes here
+        console.log("Note button clicked");
+      }
+
+      function handleSeen() {
+        let seen = localStorage.getItem(`movieSeen-${movie.id}`) === "true";
+        seen = !seen;
+        if (seen) {
+          seenButton.textContent = "Als ungesehen markieren";
+          localStorage.setItem(`movieSeen-${movie.id}`, "true");
+        } else {
+          seenButton.textContent = "Bereits gesehen";
+          localStorage.setItem(`movieSeen-${movie.id}`, "false");
+        }
+        console.log("Seen button clicked");
+      }
+
+      // Add event listeners and call the new functions
+      watchlistButton.addEventListener("click", handleWatchlist);
+      noteButton.addEventListener("click", handleNote);
+      seenButton.addEventListener("click", handleSeen);
     })
     .catch((err) => console.error(err));
 }
@@ -234,6 +238,3 @@ async function getMovieDetails(movieId) {
 const mid = getMovieId();
 console.log(mid);
 getMovieDetails(mid);
-
-// function to start after page loaded
-// not yet
