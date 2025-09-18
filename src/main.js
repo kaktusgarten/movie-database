@@ -22,7 +22,7 @@ notizForm.addEventListener("submit", (e) => {
   const id = cardId;
   // NOTIZ STRING HIER abgreifen:
   console.log("Notiz: " + inputValue);
-  console.log("Notiz-Card-ID: " + id);
+  console.log("ID: " + id);
   dialog.close();
   alert("NOTIZ IST: " + inputValue + " ID: " + id);
 });
@@ -133,11 +133,14 @@ const seenbutton = document.getElementById("seenbutton");
 //
 
 // Button Funktonen dazu:
-const cardWrapper = document.getElementById("initalMovie");
-cardWrapper.addEventListener("click", (e) => {
+const mainPage = document.getElementById("main");
+mainPage.addEventListener("click", (e) => {
   if (e.target.matches(".noteButton")) {
-    // Klappt jetzt mit dem Öffnen des Modals :-)
     cardId = e.target.closest(".flip-card").dataset.id;
     dialog.showModal();
+  }
+  if (e.target.matches(".watchListButton")) {
+    cardId = e.target.closest(".flip-card").dataset.id;
+    console.log("WatchList Knopf, CardID: " + cardId);
   }
 });
