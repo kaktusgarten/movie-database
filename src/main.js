@@ -6,7 +6,7 @@ if (window.location.pathname === "/") {
   getTrendingMovies();
 }
 if (window.location.pathname === "/target-movie.html") {
-  getSearchMovies();
+  // getSearchMovies();
 }
 // getTrendingMovies();
 // getSearchMovies();

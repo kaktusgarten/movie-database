@@ -46,6 +46,7 @@ async function getMovieDetails(movieId) {
       const original_title = data.original_title;
       const isAdult = data.adult;
       const reflink = data.homepage;
+      const budget = data.budget;
 
       const targetHTML = `
 <!-- HEADER -->
@@ -74,11 +75,13 @@ async function getMovieDetails(movieId) {
             <!-- Textbereich -->
             <div class="flex flex-col gap-2 max-w-xl">
               <h1 class="text-4xl sm:text-5xl text-white blockbuster-font">
-                Aktueller Filmtitel
+                ${title}
               </h1>
               <p class="text-white text-lg sm:text-xl">
-                Genre: Action, FSK: 12, Laufzeit: 120 Min, Erscheinungsdatum:
-                17.09.2025
+                Genre: ${genres.map((genre) => genre.name).join(", ")}, FSK: ${
+        isAdult ? "18+" : "12+"
+      }, Laufzeit: ${runtime} Min, Erscheinungsdatum:
+                ${release_date}
               </p>
               <div class="flex flex-row gap-4 mt-4">
                 <button
@@ -107,7 +110,7 @@ async function getMovieDetails(movieId) {
                 class="w-[200px] h-[290px] rounded-2xl shadow-2xl cursor-pointer"
               >
                 <img
-                  src="https://i.pinimg.com/1200x/d3/c6/9a/d3c69a7a98cba59db3a32d7a9ce6ef7d.jpg"
+                  src="${IMG_PREFIX}${poster_path}"
                   alt="Plakat"
                   class="w-full h-full object-cover rounded-2xl"
                 />
@@ -117,7 +120,7 @@ async function getMovieDetails(movieId) {
               <div
                 class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg text-lg shadow-md"
               >
-                ⭐ 8.7/10
+                ⭐ ${vote_average.toFixed(2)}/10
               </div>
             </div>
           </div>
@@ -128,28 +131,28 @@ async function getMovieDetails(movieId) {
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Filmdetails</h2>
         <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
           <li class="text-gray-800">Originaltitel: ${original_title}</li>
-          <li class="text-gray-800">Lauflänge: ${runtime}</li>
+          <li class="text-gray-800">Lauflänge: ${runtime} Minuten</li>
           <li class="text-gray-800">Ersterscheinung: ${release_date}</li>
-          <li class="text-gray-800">Sprachen: ${spoken_languages}</li>
-          <li class="text-gray-800">Drehbuch: ${original_language}</li>
-          <li class="text-gray-800">Regie: ${production_companies}</li>
-          <li class="text-gray-800">Herkunftsland: ${production_countries}</li>
-          <li class="text-gray-800">Produktionsfirmen: ${production_companies[0].name}</li>
+          <li class="text-gray-800">Sprachen: ${spoken_languages
+            .map((language) => language.name)
+            .join(", ")}</li>
+          <li class="text-gray-800">Weblink: ${reflink}</li>
+          <li class="text-gray-800">Herkunftsland: ${
+            production_countries[0].name
+          }</li>
+          <li class="text-gray-800">Produktionsfirmen: ${production_companies
+            .map((company) => company.name)
+            .join(", ")}</li>
+            <li class="text-gray-800">Filmbudget: ${
+              budget / 1000000
+            } Mio. US-Dollar</li>
         </ul>
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Über den Film</h2>
         <p class="text-gray-700 leading-relaxed mb-8">
-          Ein Hobbit begibt sich auf eine epische Reise, um einen Ring zu
-          zerstören. Begleitet wird er von einer Gemeinschaft aus Gefährten, die
-          den Lauf der Welt verändern.
+          ${overview}
         </p>
 
-        <h2 class="blockbuster-font text-2xl font-bold mb-4">Hauptbesetzung</h2>
-        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-          <li class="text-gray-800">Elijah Wood – Frodo</li>
-          <li class="text-gray-800">Ian McKellen – Gandalf</li>
-          <li class="text-gray-800">Viggo Mortensen – Aragorn</li>
-          <li class="text-gray-800">Orlando Bloom – Legolas</li>
-        </ul>
+
 
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Trailer</h2>
         <div class="aspect-video bg-black rounded-lg overflow-hidden shadow">
