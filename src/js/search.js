@@ -35,7 +35,7 @@ const getSearchMovies = (searchTerm) => {
       movieList.forEach((element) => {
         console.log("found: ", element.name);
         // foundedMovies.push(element.name);
-        foundedMoviesCode += `<li><a href="details.html?id=${
+        foundedMoviesCode += `<li><a href="target-movie.html?id=${
           element.id
         }">${element.name.toUpperCase()}</a></li>`;
       });

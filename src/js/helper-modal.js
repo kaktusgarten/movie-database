@@ -20,6 +20,7 @@ function showOverviewDialog(msg, mid) {
   detailsButton.addEventListener("click", () => {
     dialog.close();
     window.location.href = `details.html?id=${mid}`;
+    dialog.close();
   });
   buttonDiv.appendChild(detailsButton);
   dialog.appendChild(buttonDiv);
