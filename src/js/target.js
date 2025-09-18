@@ -1,5 +1,3 @@
-// import { showOverviewDialog } from "./helper-modal.js";
-
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_TRENDING = import.meta.env.VITE_URL_TRENDING;
 const URL_DETAILS = import.meta.env.VITE_URL_DETAILS;
@@ -69,7 +67,7 @@ async function getMovieDetails(movieId) {
       const isAdult = data.adult;
       const reflink = data.homepage;
       const budget = data.budget;
-      const movie = data; // Define movie here for the functions
+      const movie = data; // defined movie object here
 
       const targetHTML = `
 <header id="header">
@@ -185,28 +183,25 @@ async function getMovieDetails(movieId) {
 `;
       targetContainer.innerHTML = targetHTML;
 
-      // Get the buttons after they have been added to the DOM
+      // getting btn's AFTER been added to DOM
       const watchlistButton = document.querySelector(".watchlistButton");
       const noteButton = document.querySelector(".noteButton");
       const seenButton = document.querySelector(".seenButton");
-      const seenOverlay = document.getElementById("seenOverlay"); // Assuming this element exists in your HTML
+      const seenOverlay = document.getElementById("seenOverlay");
 
-      // Define the handler functions inside here so they can access the 'movie' variable
       function handleWatchlist() {
-        const watchlist = localStorage.getItem("watchlist") || "[]";
-        const parsedWatchlist = JSON.parse(watchlist);
+        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
+        const movieIndex = watchlist.findIndex((m) => m.id === movie.id);
 
-        if (parsedWatchlist.some((m) => m.id === movie.id)) {
+        if (movieIndex !== -1) {
+          watchlist.splice(movieIndex, 1);
           watchlistButton.textContent = "Zur Watchlist";
-          parsedWatchlist.push(movie);
-          localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
-          console.log("Watchlist button clicked");
         } else {
+          watchlist.push(movie);
           watchlistButton.textContent = "aus Watchlist entfernen";
-          parsedWatchlist.splice(parsedWatchlist.indexOf(movie), 1);
-          localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
-          console.log("Watchlist button clicked");
         }
+        localStorage.setItem("watchlist", JSON.stringify(watchlist));
+        console.log("Watchlist button toggled");
       }
 
       function handleNote() {
@@ -227,7 +222,7 @@ async function getMovieDetails(movieId) {
         console.log("Seen button clicked");
       }
 
-      // Add event listeners and call the new functions
+      // adding event listeners
       watchlistButton.addEventListener("click", handleWatchlist);
       noteButton.addEventListener("click", handleNote);
       seenButton.addEventListener("click", handleSeen);
