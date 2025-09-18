@@ -262,6 +262,9 @@ const addTrendingMovies = (movie) => {
     "self-start"
   );
   moreButtonTop.textContent = "mehr";
+  moreButtonTop.addEventListener("click", () => {
+    window.location.href = `target-movie.html?id=${movie.id}`;
+  });
 
   gridContainer.append(leftColumn, rightColumn);
   topSection.append(gridContainer, moreButtonTop);
