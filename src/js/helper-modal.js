@@ -19,7 +19,7 @@ function showOverviewDialog(msg, mid) {
   detailsButton.textContent = "zum Film";
   detailsButton.addEventListener("click", () => {
     dialog.close();
-    window.location.href = `details.html?id=${mid}`;
+    window.location.href = `target-movie.html?id=${mid}`;
     dialog.close();
   });
   buttonDiv.appendChild(detailsButton);
