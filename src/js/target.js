@@ -13,6 +13,29 @@ function getMovieId() {
   return urlParams.get("id");
 }
 
+// to refactor > helper-function
+
+function getClassByRate(vote) {
+  vote = Math.max(0, Math.min(10, vote));
+  const palette = [
+    { max: 0.5, color: "bg-red-900" },
+    { max: 1.5, color: "bg-red-700" },
+    { max: 2.5, color: "bg-red-600" },
+    { max: 3.5, color: "bg-orange-600" },
+    { max: 4.5, color: "bg-orange-500" },
+    { max: 5.5, color: "bg-yellow-500" },
+    { max: 6.5, color: "bg-yellow-400" },
+    { max: 7.5, color: "bg-lime-500" },
+    { max: 8.5, color: "bg-green-500" },
+    { max: 9.5, color: "bg-green-600" },
+    { max: 10, color: "bg-green-700" },
+  ];
+  for (let step of palette) {
+    if (vote <= step.max) return step.color;
+  }
+  return "bg-gray-400";
+}
+
 // A function to fetch movie details from the TMDB API
 async function getMovieDetails(movieId) {
   const url = `${URL_DETAILS}/${movieId}?${LANG_POST}`;
@@ -118,7 +141,9 @@ async function getMovieDetails(movieId) {
 
               <!-- Durchschnittsbewertung -->
               <div
-                class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg text-lg shadow-md"
+                class="${getClassByRate(
+                  vote_average
+                )} text-black font-bold px-4 py-2 rounded-lg text-lg shadow-md"
               >
                 ⭐ ${vote_average.toFixed(2)}/10
               </div>
