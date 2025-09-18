@@ -83,7 +83,7 @@ export const renderCard = (img, title, id) => {
 
               <!-- Mehr-Button -->
               <button
-                class="mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
+                class="[ mehrButton ] mt-1 px-3 py-1 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition self-start"
               >
                 mehr
               </button>
