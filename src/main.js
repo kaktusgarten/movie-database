@@ -1,6 +1,9 @@
 import "./style.css";
 import { getTrendingMovies } from "./trending.js";
 
+// CardId für Notizeingabe:
+let cardId = "";
+
 getTrendingMovies();
 
 // DIALOG MODAL **************:
@@ -8,7 +11,7 @@ const dialog = document.getElementById("meinDialog");
 const btnCloseDialog = document.getElementById("btnCloseDialog");
 
 btnCloseDialog.addEventListener("click", (e) => {
-  dialog.close(); // Öffnet den Dialog modal
+  dialog.close(); // Schließt das Dialog Modal
 });
 
 // NOTIZ FORM ****************:
@@ -16,9 +19,12 @@ const notizForm = document.getElementById("notizForm");
 notizForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputValue = e.target.querySelector("input[name='notizString']").value;
+  const id = cardId;
   // NOTIZ STRING HIER abgreifen:
-  console.log(inputValue);
-  alert("NOTIZ IST: " + inputValue);
+  console.log("Notiz: " + inputValue);
+  console.log("Notiz-Card-ID: " + id);
+  dialog.close();
+  alert("NOTIZ IST: " + inputValue + " ID: " + id);
 });
 
 // SEARCH FORM ****************:
@@ -127,11 +133,11 @@ const seenbutton = document.getElementById("seenbutton");
 //
 
 // Button Funktonen dazu:
-console.log("ERROR");
 const cardWrapper = document.getElementById("initalMovie");
 cardWrapper.addEventListener("click", (e) => {
   if (e.target.matches(".noteButton")) {
     // Klappt jetzt mit dem Öffnen des Modals :-)
+    cardId = e.target.closest(".flip-card").dataset.id;
     dialog.showModal();
   }
 });

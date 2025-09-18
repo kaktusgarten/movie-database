@@ -1,9 +1,9 @@
-export const renderCard = (img, title) => {
+export const renderCard = (img, title, id) => {
   const cardWrapper = document.getElementById("initalMovie");
 
   const html = `
     <section class="flex items-start gap-6 flex-wrap justify-center">
-      <div class="flip-card w-[385px] h-[580px] relative">
+      <div class="flip-card w-[385px] h-[580px] relative" data-id="${id}">
         <div class="flip-card-inner">
           <!-- Vorderseite -->
           <div class="flip-card-front p-2 rounded-xl relative">
