@@ -161,16 +161,17 @@ async function getMovieDetails(movieId) {
           <li class="text-gray-800">Sprachen: ${spoken_languages
             .map((language) => language.name)
             .join(", ")}</li>
-          <li class="text-gray-800">Weblink: ${reflink}</li>
+            <li class="text-gray-800">Filmbudget: ${
+              budget / 1000000
+            } Mio. US-Dollar</li>
           <li class="text-gray-800">Herkunftsland: ${
             production_countries[0].name
           }</li>
           <li class="text-gray-800">Produktionsfirmen: ${production_companies
             .map((company) => company.name)
             .join(", ")}</li>
-            <li class="text-gray-800">Filmbudget: ${
-              budget / 1000000
-            } Mio. US-Dollar</li>
+            <li class="text-gray-800">Webseite: <a href="${reflink}">offizielle Webseite</a></li>
+          
         </ul>
         <h2 class="blockbuster-font text-2xl font-bold mb-4">Über den Film</h2>
         <p class="text-gray-700 leading-relaxed mb-8">
