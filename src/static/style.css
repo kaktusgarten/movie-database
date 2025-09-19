@@ -1,4 +1,7 @@
+/* importing tailwind */
 @import "tailwindcss";
+/* additional flipcard component styles */
+
 @import "./flipcard.css";
 
 /* DIALOG CSS */
@@ -55,7 +58,4 @@ dialog[open] {
 /* Style the backdrop */
 .show-founded-movies-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
-}
-#app {
-  justify-content: space-between;
 }
