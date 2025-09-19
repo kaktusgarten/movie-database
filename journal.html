@@ -8,6 +8,25 @@
   </head>
   <body>
     <div id="app" class="container min-h-screen border mx-auto flex flex-col">
+      <!-- DIALOG für Notizen -->
+      <dialog
+        id="meinDialog"
+        class="sticky top-0 m-auto p-5 border rounded-3xl flex flex-col"
+      >
+        <p class="text-xl pb-3">Notiz eingeben:</p>
+        <form id="notizForm" class="flex flex-row pb-8">
+          <input
+            id="noteInput"
+            name="notizString"
+            type="text"
+            placeholder="Notiz eingeben"
+            class="border p-2 mr-4"
+          />
+          <button id="btnSearch" class="border p-2">Speichern</button>
+        </form>
+        <button id="btnCloseDialog" class="border p-2">Schließen</button>
+      </dialog>
+
       <!-- NAV -->
       <nav
         class="z-1 p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1 overflow-hidden"
@@ -33,24 +52,23 @@
                   class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                   href="journal.html"
                   title="Journal"
-                  >Journal</a
+                  >Watchlist</a
                 >
               </li>
               <!-- ######## Dummy: eingeführt zum testen -->
-              <li class="p-2">
+              <!-- <li class="p-2">
                 <a
                   class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                   href="target-movie.html"
                   title="Journal"
                   >Filmseite</a
                 >
-              </li>
+              </li> -->
               <!-- ######### End Dummy -->
               <li class="p-2">
                 <a
                   class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
-                  href="https://www.wbscodingschool.com/de/kontakt"
-                  target="_blank"
+                  href="index.html"
                   title="Kontakt"
                   >Kontakt</a
                 >
@@ -68,7 +86,7 @@
 
       <header>
         <div class="sticky">
-          <nav class="border p-5">Dein Journal</nav>
+          <nav class="border p-5">WATCHLIST</nav>
         </div>
       </header>
       <main>
@@ -112,6 +130,6 @@
       </footer>
     </div>
     <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/journal.js"></script>
+    <script type="module" src="/src/js/journal.js"></script>
   </body>
 </html>

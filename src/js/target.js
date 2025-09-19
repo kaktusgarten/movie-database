@@ -203,10 +203,19 @@ async function getMovieDetails(movieId) {
         localStorage.setItem("watchlist", JSON.stringify(watchlist));
         console.log("Watchlist button toggled");
       }
+      function checkWatchlist() {
+        const watchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
+        const movieIndex = watchlist.findIndex((m) => m.id === movie.id);
+        if (movieIndex !== -1) {
+          watchlistButton.textContent = "aus Watchlist entfernen";
+        } else {
+          watchlistButton.textContent = "Zur Watchlist";
+        }
+      }
+      checkWatchlist();
 
       function handleNote() {
-        // code goes here
-        console.log("Note button clicked");
+        //
       }
 
       function handleSeen() {
