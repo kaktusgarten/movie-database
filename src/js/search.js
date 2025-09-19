@@ -4,13 +4,18 @@ const URL_POST = "&page=1";
 
 import { showFoundedMoviesDialog } from "./helper-modal.js";
 
-const searchValue = document.getElementById("searchForm");
+const searchValue = document.getElementById("searchForm") || "notneeded";
 
-searchValue.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const searchTerm = document.getElementById("searchTerm").value;
-  getSearchMovies(searchTerm);
-});
+//bugfix / not neded on watchlist, but error or warning!? fakin RENDER dot ya ass! << it ALWAYS works on ma machine
+if (searchValue === "notneeded") {
+  console.log("searchValue not found");
+} else {
+  searchValue.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const searchTerm = document.getElementById("searchTerm").value;
+    getSearchMovies(searchTerm);
+  });
+}
 
 const dialog = document.createElement("dialog");
 
