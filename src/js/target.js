@@ -70,7 +70,7 @@ async function getMovieDetails(movieId) {
       const movie = data; // defined movie object here
 
       const targetHTML = `
-<header id="header">
+      <header id="header">
         <section
           id="heroSection"
           class="relative overflow-hidden min-h-[400px]"

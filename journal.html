@@ -3,9 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Database - Journal</title>
   </head>
+  <style>
+    .blockbuster-font {
+      font-family: "Bebas Neue", sans-serif;
+      letter-spacing: 1px;
+    }
+    .font-text {
+      font-family: "Montserrat", sans-serif;
+    }
+  </style>
   <body>
     <div id="app" class="container min-h-screen border mx-auto flex flex-col">
       <!-- DIALOG für Notizen -->
@@ -39,7 +52,14 @@
           />
           <div>
             <ul id="headerNavLinks" class="flex blockbuster-font">
+            <ul id="headerNavLinks" class="flex blockbuster-font">
               <li class="p-2">
+                <a
+                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="index.html"
+                  title="Start"
+                  >Start</a
+                >
                 <a
                   class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                   href="index.html"
@@ -90,12 +110,8 @@
         </div>
       </header>
       <main>
-        <section
-          id="journalFilme"
-          class="border p-5"
-          style="min-height: 1000px"
-        >
-          HIER kommen unsere Favoriten rein!
+        <section id="movie-list" class="p-5" style="min-height: 1000px">
+          <!-- FAVORITEN ANZEIGE -->
         </section>
       </main>
       <!-- FOOTER -->
