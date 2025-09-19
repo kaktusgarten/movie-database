@@ -1,3 +1,6 @@
+const IMG_PREFIX = import.meta.env.VITE_IMG_PREFIX;
+
+// new stateFunc // watchlist >> seen state
 const getMovieState = (movieId) => {
   return (
     JSON.parse(localStorage.getItem(`movieState_${movieId}`)) || {
@@ -50,7 +53,7 @@ const createMovieTemplate = (movie) => {
 
   return `
     <div data-id="${movie.id}"
-      class="wlMovie-row flex items-center gap-4 rounded-xl px-4 py-2 h-[100px]
+      class="wlMovie-row flex items-center gap-4 rounded-xl px-4 py-2 h-[100px] mb-4
              bg-gradient-to-r from-gray-100 to-gray-200 
              hover:from-gray-200 hover:to-gray-300
              transition-all duration-300 shadow-sm hover:shadow-lg 
@@ -59,7 +62,7 @@ const createMovieTemplate = (movie) => {
              }"
     >
       <div class="flex items-center gap-2 relative">
-        <img src="${movie.thumbnail}" alt="Poster"
+        <img src="${IMG_PREFIX}${movie.backdrop_path}" alt="Poster"
              class="thumb w-[70px] h-[90px] object-cover rounded-md shadow transition-all duration-300 ${
                state.viewed ? "grayscale" : ""
              }" />
@@ -69,16 +72,17 @@ const createMovieTemplate = (movie) => {
       </div>
 
       <div class="flex items-center gap-4 flex-1 text-sm flex-wrap">
-        <span class="font-bold text-gray-900 truncate max-w-[180px]">${
+        <span class="font-bold text-gray-900 truncate max-w-[280px]">${
           movie.title
         }</span>
-        <span class="text-gray-600">${movie.genre}</span>
-        <span class="text-gray-600">${movie.release}</span>
-        <span class="text-gray-600">${movie.language}</span>
-        <span class="text-gray-600">${movie.runtime}</span>
+        <span class="text-gray-600">Voting:</span> ${movie.vote_average}
+        <span class="text-gray-600">Org. Sprache:</span>${
+          movie.original_language
+        }
+ 
 
-        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"><a href="${
-          movie.moreLink
+        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"><a href="target-movie.html?id=${
+          movie.id
         }">mehr Details</a></button>
 
         <div class="flex gap-1">
@@ -86,30 +90,14 @@ const createMovieTemplate = (movie) => {
           <button class="px-2 py-1 bg-gray-800 text-white rounded-md hover:bg-gray-700 text-xs">EN</button>
         </div>
 
-        <img src="${movie.fsk}" alt="FSK" class="w-10 h-10 object-contain" />
+        ${movie.adult ? "🔞" : "FSK 12+"}
 
-        <div class="tooltip">
-          <button aria-expanded="false" onclick="toggleTooltip(this)"
-            class="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Filminhalt</button>
-          <div class="tooltip-content">
-            <p class="text-sm text-gray-700 mb-2">${movie.description}</p>
-            <a href="${
-              movie.moreLink || "#"
-            }" class="text-blue-600 underline text-sm">mehr</a>
-          </div>
-        </div>
-
-        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">Zur Watchlist</button>
         <button onclick="toggleViewed(this)" class="seen-btn px-3 py-1 ${
           state.viewed ? "bg-red-700" : "bg-black"
         } text-white rounded-md hover:bg-gray-800">
           ${state.viewed ? "Als ungesehen markieren" : "Bereits gesehen"}
         </button>
-        <button onclick="openNoteModal('${
-          movie.id
-        }')" class="note-btn px-3 py-1 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
-          ${state.note ? "Notiz bearbeiten" : "Notiz"}
-        </button>
+
       </div>
     </div>
   `;
@@ -145,5 +133,4 @@ if (btnCloseDialog) {
   });
 }
 
-// Initial call to render the journal when the page loads.
 createWatchlist();
