@@ -18,7 +18,7 @@
         id="meinDialog"
         class="sticky top-0 m-auto p-5 border rounded-3xl flex flex-col"
       >
-        <p class="text-xl pb-3">Notiz eingeben:</p>
+        <p class="text-xl pb-3">Notiz + Enter oder Esc</p>
         <form id="notizForm" class="flex flex-row pb-8">
           <input
             id="noteInput"
@@ -29,7 +29,7 @@
           />
           <button id="btnSearch" class="border p-2">Speichern</button>
         </form>
-        <button id="btnCloseDialog" class="border p-2">Schließen</button>
+        <!-- <button id="btnCloseDialog" class="border p-2">Schließen</button> -->
       </dialog>
 
       <!-- NAV -->
@@ -85,8 +85,9 @@
         </div>
         <div class="navRight flex flex-col items-end space-y-2">
           <div>
-            <button class="border p-1">LOG IN</button>
-            <button class="border p-1">SIGN UP</button>
+            <!-- do we get a login-system here? -->
+            <!-- <button class="border p-1">LOG IN</button>
+            <button class="border p-1">SIGN UP</button> -->
           </div>
         </div>
       </nav>
@@ -143,6 +144,7 @@
                     <input
                       type="text"
                       name="searchString"
+                      id="searchTerm"
                       placeholder="Filmtitel Suche"
                       class="pl-10 pr-3 py-2 w-full border border-gray-400 rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     />

@@ -1,6 +1,11 @@
-// trending.js / used to load 3 actual trending movies
+// trending.js / used to load 3 actual trending movies / now 9
 // import "./flipcard.css";
 import { showOverviewDialog } from "./helper-modal.js";
+import {
+  addMovieToWatchlist,
+  removeMovieFromWatchlist,
+  isMovieInWatchlist,
+} from "./watchlist.js";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const URL_TRENDING = import.meta.env.VITE_URL_TRENDING;
@@ -260,7 +265,7 @@ const addTrendingMovies = (movie) => {
     "transition",
     "self-start"
   );
-  moreButtonTop.textContent = "mehr";
+  moreButtonTop.textContent = "Details";
   moreButtonTop.addEventListener("click", () => {
     window.location.href = `target-movie.html?id=${movie.id}`;
   });
@@ -304,7 +309,7 @@ const addTrendingMovies = (movie) => {
     "transition",
     "self-start"
   );
-  moreButtonMiddle.textContent = "Details";
+  moreButtonMiddle.textContent = "mehr";
   moreButtonMiddle.addEventListener("click", () => {
     // opening dialog-box to show movie.overview and moreLink-Button for further details refering to details.html with movie.id
     showOverviewDialog(movie.overview, movie.id);
@@ -364,7 +369,10 @@ const addTrendingMovies = (movie) => {
     "hover:bg-blue-700",
     "transition"
   );
-  watchlistButton.textContent = "Zur Watchlist";
+  const isWatched = isMovieInWatchlist(movie);
+  watchlistButton.textContent = isWatched
+    ? "aus Watchlist entfernen"
+    : "Zur Watchlist";
 
   const seenButton = document.createElement("button");
   seenButton.id = `seenButton${movie.id}`;
@@ -427,11 +435,15 @@ const addTrendingMovies = (movie) => {
   });
 
   watchlistButton.addEventListener("click", () => {
-    const watchlist = localStorage.getItem("watchlist") || "[]";
-    const parsedWatchlist = JSON.parse(watchlist);
-    parsedWatchlist.push(movie);
-    localStorage.setItem("watchlist", JSON.stringify(parsedWatchlist));
+    if (isMovieInWatchlist(movie)) {
+      removeMovieFromWatchlist(movie);
+      watchlistButton.textContent = "Zur Watchlist";
+    } else {
+      addMovieToWatchlist(movie);
+      watchlistButton.textContent = "aus Watchlist entfernen";
+    }
   });
+
   getGenres(movie.id);
 };
 

@@ -112,7 +112,7 @@ const createWatchlist = () => {
   // if watchlist is empty
   if (watchlist.length === 0) {
     watchlistContainer.innerHTML =
-      '<p class="text-center mt-42 text-zinc-600 text-2xl">Deine Watchlist ist leer 😧<br> Füge Filme hinzu um nichts mehr zu verpassen 🍿🎬</p>';
+      '<p class="text-center mt-42 text-zinc-500 text-lg">Deine Watchlist ist leer 😧<br> Füge Filme hinzu um nichts mehr zu verpassen 🍿🎬</p>';
     return;
   }
 

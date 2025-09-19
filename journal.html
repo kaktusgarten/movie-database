@@ -3,22 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-      rel="stylesheet"
-    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Database - Journal</title>
   </head>
-  <style>
-    .blockbuster-font {
-      font-family: "Bebas Neue", sans-serif;
-      letter-spacing: 1px;
-    }
-    .font-text {
-      font-family: "Montserrat", sans-serif;
-    }
-  </style>
   <body>
     <div id="app" class="container min-h-screen border mx-auto flex flex-col">
       <!-- DIALOG für Notizen -->
@@ -52,14 +39,7 @@
           />
           <div>
             <ul id="headerNavLinks" class="flex blockbuster-font">
-            <ul id="headerNavLinks" class="flex blockbuster-font">
               <li class="p-2">
-                <a
-                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
-                  href="index.html"
-                  title="Start"
-                  >Start</a
-                >
                 <a
                   class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                   href="index.html"
@@ -98,8 +78,9 @@
         </div>
         <div class="navRight flex flex-col items-end space-y-2">
           <div>
-            <button class="border p-1">LOG IN</button>
-            <button class="border p-1">SIGN UP</button>
+            <!-- I guess not!? -->
+            <!-- <button class="border p-1">LOG IN</button>
+            <button class="border p-1">SIGN UP</button> -->
           </div>
         </div>
       </nav>
@@ -110,14 +91,18 @@
         </div>
       </header>
       <main>
-        <section id="movie-list" class="p-5" style="min-height: 1000px">
-          <!-- FAVORITEN ANZEIGE -->
+        <section
+          id="journalFilme"
+          class="border p-5"
+          style="min-height: 1000px"
+        >
+          HIER kommen unsere Favoriten rein!
         </section>
       </main>
       <!-- FOOTER -->
       <footer id="footer" class="">
         <nav
-          class="p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1"
+          class="p-5 bg-[#333] text-white sticky bottom-0 grid sm:grid-cols-2 grid-cols-1"
         >
           <div class="navLeft flex items-center">
             <img

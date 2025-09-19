@@ -56,3 +56,6 @@ dialog[open] {
 .show-founded-movies-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+#app {
+  justify-content: space-between;
+}
