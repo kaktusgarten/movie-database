@@ -1,3 +1,4 @@
+// RENDER CARD
 function renderCard(renderPlace, data) {
   const cardWrapper = document.getElementById(renderPlace);
 
@@ -21,6 +22,7 @@ function renderCard(renderPlace, data) {
   cardWrapper.insertAdjacentHTML("beforeend", HTML);
 }
 
+// RENDER FAVORITEN
 function renderFav(renderPlace, element) {
   const HTML = `
            <article class="[ kachel ] border p-4 mb-3 flex" data-id="${
