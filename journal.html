@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.79" />
     <title>Movie Database - Journal</title>
   </head>
   <body>
@@ -29,39 +29,56 @@
 
       <!-- NAV -->
       <nav
-        class="z-1 p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1 overflow-hidden"
+        class="z-10 p-5 bg-[#333] text-white sticky top-0 grid sm:grid-cols-2 grid-cols-1 overflow-hidden"
       >
         <div class="navLeft flex items-center">
-          <img
+          <!-- <img
             src="./public/img/logo.jpg"
             alt="LOGO"
             class="mr-5 h-[3em] w-[3em] object-contain"
-          />
+          /> -->
           <div>
             <ul id="headerNavLinks" class="flex blockbuster-font">
               <li class="p-2">
                 <a
-                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  class="transition duration-300 hover:text-fuchsia-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                   href="index.html"
                   title="Start"
-                  >Start</a
+                  ><button class="rounded-2xl px-4 py-1 hover:bg-[#444]">
+                    Start
+                  </button></a
                 >
               </li>
               <li class="p-2">
                 <a
-                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  class="transition duration-300 hover:text-fuchsia-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                   href="journal.html"
                   title="Journal"
-                  >Watchlist</a
+                  ><button class="rounded-2xl px-4 py-1 hover:bg-[#444]">
+                    Watchlist
+                  </button></a
                 >
               </li>
+              <!-- ######## Dummy: eingeführt zum testen -->
+              <!-- <li class="p-2">
+                <a
+                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="target-movie.html"
+                  title="Journal"
+                  >Filmseite</a
+                >
+              </li> -->
+              <!-- ######### End Dummy -->
 
               <li class="p-2">
                 <a
-                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
-                  href="index.html"
+                  class="transition duration-300 hover:text-fuchsia-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                  href="https://www.wbscodingschool.com/de/kontakt"
+                  target="_blank"
                   title="Kontakt"
-                  >Kontakt</a
+                  ><button class="rounded-2xl px-4 py-1 hover:bg-[#444]">
+                    Kontakt
+                  </button></a
                 >
               </li>
             </ul>
@@ -69,7 +86,7 @@
         </div>
         <div class="navRight flex flex-col items-end space-y-2">
           <div>
-            <!-- I guess not!? -->
+            <!-- do we get a login-system here? -->
             <!-- <button class="border p-1">LOG IN</button>
             <button class="border p-1">SIGN UP</button> -->
           </div>
@@ -77,8 +94,23 @@
       </nav>
 
       <header>
-        <div class="sticky">
-          <nav class="border p-5">WATCHLIST</nav>
+        <div
+          class="relative z-10 flex-col justify-center p-l min-[height:300px]: max-[height:300px]: min-h-[333px]"
+        >
+          <section class="noborder p-5 text-gray-500 text-5xl">
+            Deine Watchlist
+            <div
+              class="flex justify-end absolute inset-0 w-full h-[full] overflow-hidden -z-20 bg-[#000A0E]"
+            >
+              <div id="headerBanner">
+                <img
+                  src="./public/img/header-1.png"
+                  hzeight=""
+                  alt="header banner"
+                />
+              </div>
+            </div>
+          </section>
         </div>
       </header>
       <main>
@@ -91,10 +123,8 @@
         </section>
       </main>
       <!-- FOOTER -->
-      <footer id="footer" class="">
-        <nav
-          class="p-5 bg-[#333] text-white sticky bottom-0 grid sm:grid-cols-2 grid-cols-1"
-        >
+      <footer id="footer" class="overflow-hidden sticky bottom-0">
+        <nav class="p-5 bg-[#333] text-white grid sm:grid-cols-2 grid-cols-1">
           <div class="navLeft flex items-center">
             <img
               src="./public/img/logo.jpg"
@@ -104,13 +134,13 @@
             <div>
               <ul id="headerNavLinks" class="flex">
                 <li class="p-2">
-                  <a href="index.html" title="Start">Start</a>
+                  <a href="index.html" title="Start">Kontakt</a>
                 </li>
                 <li class="p-2">
-                  <a href="journal.html" title="Journal">Journal</a>
+                  <a href="journal.html" title="Journal">Impressum</a>
                 </li>
                 <li class="p-2">
-                  <a href="index.html" title="Kontakt">Kontakt</a>
+                  <a href="index.html" title="Kontakt">Datenschutz</a>
                 </li>
               </ul>
             </div>
