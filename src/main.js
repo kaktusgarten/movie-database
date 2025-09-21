@@ -3,24 +3,23 @@ import { getTrendingMovies } from "./getTrending.js";
 import { getSearchMovies } from "./getSearchMovies.js";
 import { localStorageAddFavorite } from "./localStorage.js";
 
+const mainSection = document.getElementById("main");
+
 // SEARCH FORM ****************:
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputValue = e.target.querySelector("input[name='searchString']").value;
-
-  console.log("SUCHE NACH: " + inputValue);
   getSearchMovies(inputValue);
 });
 
-// GET MOVIES, getTrendingMovies ruft die Fuction renderMovie auf..
+// Akutelle Filme laden und anzeigen:
 getTrendingMovies();
 
-// BUTTON FUNKTIONEN *** :
-const mainSection = document.getElementById("main");
-
+// BUTTONS
 mainSection.addEventListener("click", (e) => {
-  // BUTTON Add Favorit
+  
+  // BUTTON - ADD FAVORIT
   if (e.target.matches(".btnAddFavorit")) {
     const cardId = e.target.closest(".kachel").dataset.id;
     const img = e.target.closest(".kachel").querySelector(".img").src;
@@ -35,7 +34,7 @@ mainSection.addEventListener("click", (e) => {
     alert("Zu Favoriten hinzugefügt!");
   }
 
-  // BUTTON Detail Page
+  // BUTTON - DETAIL PAGE
   if (e.target.matches(".btnDetails")) {
     const cardId = e.target.closest(".kachel").dataset.id;
     window.location.href = `/detail.html?id=${cardId}`;

@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="app" class="container min-h-screen border mx-auto flex flex-col">
-       <!-- DIALOG für Notizen -->
+      <!-- DIALOG für Notizen -->
       <dialog
         id="meinDialog"
         class="sticky top-0 m-auto p-5 border rounded-3xl flex flex-col"
@@ -31,7 +31,6 @@
         <button type="button" id="btnCloseDialog" class="border p-2">
           Schließen
         </button>
-
       </dialog>
       <!-- NAV -->
       <nav
@@ -61,30 +60,32 @@
                   >Favoriten</a
                 >
               </li>
-
-              <li class="p-2">
-                <a
-                  class="transition duration-300 hover:text-blue-500 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]"
-                  href="detail.html"
-                  title="Journal"
-                  >Detail Seite</a
-                >
-              </li>
             </ul>
           </div>
         </div>
         <div class="navRight flex flex-col items-end space-y-2">
-          <div>
-            <button class="border p-1">LOG IN</button>
-            <button class="border p-1">SIGN UP</button>
-          </div>
+          <div>Movie-Database-Übung</div>
         </div>
       </nav>
 
       <header>
         <section id="heroSection" class="bg-[#eee] overflow-hidden">
-          <div class="flex-col justify-center p-5">
-            <h1 class="p-5 text-3xl font-bold">Favoriten:</h1>
+          <div
+            class="flex-col p-5"
+            style="
+              display: flex;
+              align-items: flex-start;
+              flex-direction: row;
+              justify-content: space-between;
+            "
+          >
+            <h1 class="p-5 text-3xl font-bold inline-block">Favoriten</h1>
+            <button
+              id="btnDeleteFav"
+              class="border bg-[#800000] text-white p-3"
+            >
+              Favoriten löschen
+            </button>
           </div>
         </section>
       </header>
@@ -96,7 +97,6 @@
 
         <section id="favoritenWrapper" class="grid-cols-1 gap-4 p-5">
           <!-- HIER FAVORITEN REIN -->
-
         </section>
       </main>
 

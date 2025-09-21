@@ -1,4 +1,4 @@
-import { renderTrendingCard } from "./render";
+import { renderCard } from "./render";
 const trendingContainer = document.getElementById("trending-movies");
 
 const API_KEY =
@@ -20,7 +20,7 @@ function getTrendingMovies() {
       const movieList = json.results;
       movieList.splice(4);
       movieList.forEach((element) => {
-        renderTrendingCard("initalMovieWrapper", element);
+        renderCard("initalMovieWrapper", element);
       });
     })
     .catch((err) => console.error(err));

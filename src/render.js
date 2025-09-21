@@ -1,12 +1,12 @@
-function renderTrendingCard(renderPlace, data) {
+function renderCard(renderPlace, data) {
   const cardWrapper = document.getElementById(renderPlace);
 
   const HTML = `
       <article class="[ kachel ] border flex flex-col p-3" data-id="${data.id}">
             <img
-              class="[ img ] mb-4 border object-contain"
+              class="[ img ] mb-4 border object-contain h-[500px] bg-[#333]"
               src="https://media.themoviedb.org/t/p/w220_and_h330_face/${data.backdrop_path}"
-              alt="BILD"
+              alt="${data.title}"
             />
             <h3 class="[ title ] mb-4 font-bold text-xl h-[60px] overflow-auto">${data.title}</h3>
             <p class="[ overviewText ] mb-4  overflow-auto h-[200px]">${data.overview}</p>
@@ -54,4 +54,4 @@ function renderFav(renderPlace, element) {
   renderPlace.insertAdjacentHTML("beforeend", HTML);
 }
 
-export { renderTrendingCard, renderFav };
+export { renderCard, renderFav };

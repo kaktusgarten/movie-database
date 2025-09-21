@@ -5,7 +5,6 @@ let aktuelleFilmIdNotiz = "";
 
 // LOAD FAVORITEN:
 function loadFavs() {
-  console.log("loadFavs");
   const favs = JSON.parse(localStorage.getItem("favoriten"));
   let favWrapper = document.getElementById("favoritenWrapper");
   favs.forEach((element) => {
@@ -51,5 +50,11 @@ notizForm.addEventListener("submit", (e) => {
 
   localStorage.setItem("favoriten", JSON.stringify(favoriten));
   dialog.close();
+  window.location.reload();
+});
+
+const btnDeleteAll = document.getElementById("btnDeleteFav");
+btnDeleteAll.addEventListener("click", () => {
+  localStorage.setItem("favoriten", JSON.stringify([]));
   window.location.reload();
 });
