@@ -12,6 +12,6 @@ if (
 }
 if (window.location.pathname === "/target-movie.html") {
 }
-if (window.location.pathname === "/journal.html") {
-  watchlist();
-}
+// if (window.location.pathname === "/journal.html") {
+//   watchlist();
+// }
